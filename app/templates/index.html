@@ -31,7 +31,7 @@
       {% for player in row %}
       <div class="col-md-6" style="background-color: rgba(86,61,124,.15); border:1px solid rgba(86,61,124,.2);">
         <div class="col-md-5">
-          <img src="{{ url_for('static', filename=player.img_path )}}" alt="{{ player.img_alt }}" class="img-responsive" style="margin: auto; width: 100%; padding: 10px;"></img>
+          <img src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" class="img-responsive" style="margin: auto; width: 100%; padding: 10px;"></img>
         </div>
         <div class="col-md-7">
           <h3><a href="{{ player.link }}">{{ player.name }}</a></h3>

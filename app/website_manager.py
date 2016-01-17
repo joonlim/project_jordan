@@ -15,7 +15,9 @@ FOOTER = "Site Built By " + AUTHOR_NAME
 
 
 class WebsiteManager:
-
+    """
+    Manages website information.
+    """
     def info(self):
         """
         Return information about the website, including its name, icon image,

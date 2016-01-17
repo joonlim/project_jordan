@@ -9,18 +9,23 @@ from app.nba_data_manager import data_manager as dm
 from app.user_manager import user_manager as um
 
 
-# index
-# Home page
 @app.route('/')
 @app.route('/index')
 @app.route('/index.html')
 def index():
+    """
+    Home page
+    """
     website = wm.info()
     page = wm.new_page("Home")
 
+    # Fake user for now
     user = um.fake_user()
 
-    players = dm.sample_team()['players']
+    player_ids = user['players']
+    players = dm.get_players_by_id(player_ids)
+
+    # Create rows of two players each for the website's home page.
     player_rows = utils.group_into_pairs(players)
 
     return render_template("index.html",

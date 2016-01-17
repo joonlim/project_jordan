@@ -1,10 +1,13 @@
 
 
-# Takes a list as input and pushes every two items of that list into a new list
-# as pairs of items and returns the new list. If there is an odd number of
-# items, the last pair has only one item in the list.
-# Ex: [1,2,3,4,5,6,7] -> [[1,2],[3,4],[5,6],[7]]
 def group_into_pairs(items):
+    """
+    Takes a list as input and pushes every two items of that list into a new
+    list as pairs of items and returns the new list. If there is an odd number
+    of items, the last pair has only one item in the list.
+
+    Ex: [1,2,3,4,5,6,7] -> [[1,2],[3,4],[5,6],[7]]
+    """
     pairs = list()
 
     i = 0
