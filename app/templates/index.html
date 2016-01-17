@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <!-- jumbotron -->
+
+  <!-- TODO: yahoo/bing/google search for player name + news -->
+  <div class="container">
+    <div class="jumbotron">
+      <center>
+      <h1>Player News</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. Proin diam sem, ornare non sodales ut, hendrerit eget urna. Sed sed convallis tortor, ac imperdiet risus. Aliquam ac arcu vitae sapien dapibus condimentum eleifend sit amet dolor. Aliquam pretium arcu nec nisl consectetur laoreet. Etiam ullamcorper efficitur sem eu porta. Aliquam molestie ipsum eget leo varius rhoncus. Integer volutpat, metus sed molestie sollicitudin, nisi tellus dignissim mauris, id vehicula ante ex non diam. Pellentesque eget odio in velit semper ultricies vehicula id ipsum. Nulla ac enim hendrerit, mollis tortor in, dapibus dolor.</p>
+      <a class="btn btn-default">Watch Now</a>
+      <a class="btn btn-info">Tweet it!</a>
+    </center>
+    </div>
+  </div>
+  <!-- end jumbotron -->
+
+  <!-- responsive grid system -->
+  <!-- row can only have 12 columns -->
+  <!-- here we have 4 columns of size 3 -->
+  <div class="container" style="padding-bottom: 100px;">
+
+    <!-- no columns when smaller than 'medium' -->
+    <!-- 2 players per row -->
+    <!-- TODO: Make players objects rather than dicts. link() should be a method. Displays more player info and graph. -->
+
+    {% for row in player_rows %}
+    <div class="row">
+      {% for player in row %}
+      <div class="col-md-6" style="background-color: rgba(86,61,124,.15); border:1px solid rgba(86,61,124,.2);">
+        <div class="col-md-5">
+          <img src="{{ url_for('static', filename=player.img_path )}}" alt="{{ player.img_alt }}" class="img-responsive" style="margin: auto; width: 100%; padding: 10px;"></img>
+        </div>
+        <div class="col-md-7">
+          <h3><a href="{{ player.link }}">{{ player.name }}</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
+          <a href="#" class="btn btn-default" style="margin-bottom:18px;">Read More</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  <!-- end grid -->
+
+{% endblock %}

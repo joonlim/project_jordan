@@ -1,0 +1,490 @@
+
+TODO: Create player dicts using the data from db.
+
+TODO: Show the stats of players who played given a date ordered by PER(default).
+Or choose a stat
+
+
+ TODO: https://www.amcharts.com/ graph line 
+ https://www.amcharts.com/demos/date-based-data/
+ https://www.amcharts.com/demos/line-chart-with-scroll-and-zoom/
+ https://www.amcharts.com/demos/smoothed-line-chart/
+
+ TODO: Make players objects rather than dicts. link() and image() should be methods. Displays more player info and graph.
+
+ TODO: Make script to download player image icons from 'http://www.nba.com/playerfile/stephen_curry/'
+  exception: check if title is "NBA.com/Stats"
+  careful of cj mccollum and jj redick
+
+http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/statscube/players/large/stephen_curry.png
+
+http://stats.nba.com/media/logos/LAL_80x64.png
+
+TODO: fix scraper if winner is null
+
+ TODO: yahoo/bing/google search for player name + news
+
+ TODO: site icon
+
+ TODO: stream player videos from nba.com
+
+ http://www.nba.com/playerfile/hassan_whiteside
+
+TODO: Search bar with auto complete for first and last names
+
+TODO: player objects
+  have a total and an average dict
+
+TODO: getting top 20s list
+- use top 20s lists to get top 5s, and top 10s lists.
+- algorithm to get top 20 players in a stat category: 
+
+  TODO: How to allow for duplicates?
+
+  getAverageTop20(players, stat)
+  {
+      minheap = MinHeap()
+      for player in players:
+          if len(minheap) < 20:
+              # list to allow for more than 1 player with same stat
+              mult_players = set()
+              mult_players.add(player)
+              player_tuple = tuple(player.average[stat], mult_players)
+              minheap.insert(player_tuple)
+          else if minheap[0][0] < player.average[stat]: # root is lower
+              # first check if there is a set in this heap = to the given stat:
+              if minheap.addIfContains(player.average[stat], player):
+                  continue
+              else:
+                  # combine remove root and insert into one step
+                  # replaces the root with new item then fixHeap()
+                  # is called.
+                  mult_players = set()
+                  mult_players.add(player)
+                  player_tuple = tuple(player.average[stat], mult_players)
+                  minheap.popAndInsert(player_tuple)
+
+      sorted_player_sets = minheap.sort()
+
+  }
+
+
+TODO: Display "hot" players in specific categories depending on derivatives.
+Using a set of given ordered coordinates, calculate an estimated function, then calculate the derivative function. Each game date is converted to a number from 0-n, where n is the number of games. Calculate the derivate value using the function at today's date. This is the player's "on the rise" and "on the fall" values.
+
+TODO: parse epithets
+
+TODO: banner should only load one image
+
+
+sorted lists for stats
+
+
+award players for being in top 10 category of a stat,
+
+player tags: 
+- injury prone if they are injured more than 25% of their games.
+- high scorer if they score more than 25 PPG
+- great passer if their AST/TO is > 2.00
+- assist machine if their APG 
+
+
+
+
+
+
+
+
+
+
+- Graph of player(s) stat over a period of time
+  - stats(points, rebounds, etc) in a game
+  - calculate PER
+
+
+All Players Doc
+  - ID
+  - Name
+  - Age
+  - nicknames
+  - news
+
+
+
+
+
+Player Season 2015-16 Doc ID 12124
+  Date
+  Points
+  W/L
+  etc
+  minutes
+
+
+All players sorted by stat:
+
+
+
+News about each player
+
+
+News table
+
+ID, title, link, date
+
+
+
+Show "hot" players for each category
+- players whose APG for the week had a great % increase from their normal APG.
+
+
+
+- stat values compared to last week
+
+- stat values compared to whole season
+
+- stat values compared to last season
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+https://basketballmonster.com/PlayerRankings.aspx
+
+http://www.basketball-reference.com/players/j/jordami01.html
+
+http://www.basketball-reference.com/players/c/curryst01/gamelog/2016/
+
+
+NBA reference that caters to my interests and needs
+
+
+
+lots of queries.
+
+no updates.
+
+
+nosql
+
+
+
+Each player has their own table.
+
+ex:
+
+Players Table
+
+name, position, etc
+
+gamelogs_id
+
+kawhileaonrd2015-2016
+kawhileonard2014-2015
+
+
+
+
+
+
+should cache computations made my nbascrape in text files such as a day's top performers
+
+
+
+
+
+
+
+
+- MongoDB tutorial
+- Java Web App Tutorial
+- Python Web scrape tutorial
+
+
+
+
+
+
+Project Jordan
+
+- My Basketball App - Java App
+- NBAScrape - Python Script
+
+
+The main purpose of this project is to gain experience in the following concepts:
+
+
+
+Site for the avid fan and the hardcore fantasy player
+- Use to track how players are doing
+
+
+- Java project
+  - After designing, make interfaces
+  - test using junit
+  - regex
+  - javadoc and debugging
+  - ajax
+  - nosql(mongodb)
+  - iterator
+  - assertions everywhere (enable -ea in Eclipse)
+  - encapsulate, polymorph, inherit, abstract
+  - use shorts, bytes when needed
+  - use BigDecimal if needed
+  - apply design patterns everywhere
+    - factory
+    - singleton
+    - builder
+    - prototype
+    - proxy
+    - composite
+    - decorator
+    - adapter
+    - facade
+    - bridge
+    - flyweight
+    - strategy
+    - template
+    - observer
+    - command
+    - iterator
+    - state
+    - chain of responsibility
+    - interpreter
+    - mediator
+    - memento
+    - visitor
+
+
+
+
+MongoDB documents
+
+
+
+teams ={'wizards':{  
+                   'garrett temple':'202066',
+                   'andre miller':'1889',
+                   'kevin seraphin':'202338',
+                   'otto porter':'203490',
+                   'rasual butler':'2446',
+                   'kris humphries':'2743',
+                   'nene hilario':'2403',
+                   'paul pierce':'1718',
+                   'marcin gortat':'101162',
+                   'bradley beal':'203078',
+                   'john wall':'202322'
+                   }
+
+All Teams and Players
+http://stats.nba.com/stats/commonallplayers?LeagueID=00&Season=2015-16&IsOnlyCurrentSeason=1
+
+League Leaders
+
+http://stats.nba.com/stats/playerdashptshotlog?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&Month=0&OpponentTeamID=0&Outcome=&Period=0&PlayerID=202322&Season=2014-15&SeasonSegment=&SeasonType=Regular+Season&TeamID=0&VsConference=&VsDivision=
+
+john wall
+
+http://stats.nba.com/stats/playergamelog?PlayerID=202322&Season=2015-16&SeasonType=Regular+Season
+
+
+
+
+
+http://stats.nba.com/stats/commonplayerinfo?PlayerID=202322
+
+
+
+
+
+
+
+Views
+
+
+General View - Displays info about all NBA players
+Team View - flitered general view with only info about players on your team
+Tracked Players View - list of tracked players that the user makes
+Search Players - view graph and stats per game
+
+
+
+Tabs 
+- Front (News?)
+- Graph (Visualize stats) (per 36 or per game)
+- Top Performers
+- Player Change
+	- tables sorted for
+		- % increase/decrease in PER
+		- % increase/decrease in APG
+		- etc
+
+Player graph
+
+Quick graphs:
+	your players
+
+date range, choose a stat, PER, etc.
+
+View graph of any number of players.
+
+
+
+
+
+
+
+Today's Top Performers
+
+- didn't play
+
+
+
+
+Player
+
+	- % of games missed
+
+
+
+If you click a player's name
+it goes to their page
+
+- all games of the season
+- shows graphs for every stat of this player
+- click compare with (another player) to see all graphs of both players side by side.
+
+
+
+
+
+
+
+
+
+
+
+My Basketball User Stories
+
+
+home page
+
+
+
+
+
+
+compare page
+
+
+
+
+
+
+specific player page
+
+
+
+
+
+
+
+
+
+
+
+
+Objects
+
+- MyBasketballApplication
+- NBA Stat Comparer - 2015
+	- previously (version 1.0 in Java), Game object was constructed using a field for all stats. However, since we only compare one stat at a time among players, use the builder pattern to make Game objects with only the parameters needed (Date and one stat).
+	- The site I used: basketball monster, which is a great resource, became a pay-to-use app. So I decided to make my own version that was more suited to my needs and more friendly to the eye (images, tags(injuries, breakout, better ui).
+	- Took my site to the web (version 2.0) with usernames.
+	- Applied concepts in:
+		- UI
+		- MVC framework
+		- Distributed systems
+		- internet programming
+		- probability and machine learning, guessing future stats, injuries, who will play more minutes, etc.
+		- NoSQL (mongodb)
+		- web mining. updates on players
+
+
+Learn that when one player doesn't play, which player's minutes/productivity go up.
+ex: when Russell Westbrook doesn't play, Kevin Durant's Points and Assists go up.
+- Graph structure of all players
+
+
+PHP Script that gets parses NBA stat data of the day from ESPN and posts the top productive players.
+
+
+ESPN's old top productive players thing
+
+
+shows production graph of date range.
+
+
+
+can choose any stat, any two players:
+
+
+every morning at 5:00AM, calculate the stats for all players of the day.
+Create a sorted list for every category (per game and total).
+
+
+
+player tags: 
+- injury prone if they are injured more than 25% of their games.
+- high scorer if they score more than 25 PPG
+- great passer if their AST/TO is > 2.00
+- assist machine if their APG 
+
+
+merits
+
+Top 5 Value
+
+Minutes per game
+
+Top PPG
+Top 5 PPG
+Top 10 PPG	
+Top 5 APG
+Top 5 MPG
+Top 5 RPG
+Bottom 5 TPG
+Top 5 RPG
+Top 5 FFA PER GAME
+Top 5 FFM PER GAME
+BLOCKS
+STEALS
+3 POINTERS
+Top 5 FG PER GAME
+
+fouls
+
+
+
+
+Top 5 Total Games
+
+Top 5 TOTAL MINUTES
+
+Top 5 FREE THROWS MISSED 
+
+
+Top 5 TOTAL POINTS (GREEN)
+Top 10 TOTAL POINTS (LIGHT GREEN)
+Top 20 TOTAL POINTS (LIGHTER GREEN)
+
+Top 10 AST/TO
+
+dermits
+BOTTOM 5 TOTAL POINTS (RED)
+BOTTOM 10 TOTAL POINTS (LIGHT RED)
+BOTTOM 20 TOTAL POITNS (LIGHTER RED)
