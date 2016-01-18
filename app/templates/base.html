@@ -1,7 +1,13 @@
+<link href="{{ url_for('static', filename=website.icon) }}" rel="icon" type="image/x-icon">
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+  window.jQuery || document.write('<script src="{{ url_for('static', filename='jquery.js') }}">\x3C/script>')
+</script>
+
 {% extends "bootstrap/base.html" %}
-
-<!-- <link href="{{ url_for('static', filename='img/icon.png') }}" rel="icon" type="image/x-icon"> -->
-
 {% block title %}{{ page.title }} - {{ website.name }} - Hello {{ user.name }} and {{ user.hash }}! {% endblock %}
 
 {% block navbar %}
@@ -47,51 +53,6 @@
       </div>
     </div>
   </div>
-
-  <!-- carousel -->
-  <div id="myCarousel" class="carousel slide">
-    <div class="carousel-inner">
-      <div class="item active">
-        <a href="{{ page.banner.link }}">
-          <img src="{{ url_for('static', filename=page.banner.path) }}" alt="{{ page.banner.name }}" class="img-responsive"></img>
-<!--           <div class="carousel-caption">
-            <h3>{{ page.banner.name }}</h3>
-          </div> -->
-          <div class="carousel-caption" style="margin-bottom: 30%;">
-            <div class="header-text hidden-xs">
-              <div class="col-md-12 text-center">
-                <h1>
-                  <span>{{ page.header }}</span>
-                </h1>
-                <br>
-                <h3>
-                  <span>{{ page.header_msg }}</span>
-                </h3>
-                <br>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-<!--       {% for banner in banners %}
-      <div class="item">
-        <a href="{{ banner.link }}">
-          <img src="{{url_for('static', filename=banner.path)}}" alt="{{ banner.alt }}" class="img-responsive"></img>
-          <div class="carousel-caption">
-            <h3>{{ banner.name }}</h3>
-          </div>
-        </a>
-      </div>
-      {% endfor %} -->
-    </div>
-<!--     <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-      <span class="icon-prev"></span>
-    </a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">
-      <span class="icon-next"></span>
-    </a> -->
-  </div>
-  <!-- end carousel -->
 
   <!-- modal -->
   <div class="modal fade" id="contact" role="dialog">

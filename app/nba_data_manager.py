@@ -161,6 +161,7 @@ class NBADataManager:
         ft_pct = utils.ratio_string(ftm, fta, 3)
 
         return {
+            "_id": player_info['_id'],
             "name": name,
             "link": link,
             "team": team,
@@ -187,7 +188,7 @@ class NBADataManager:
             "pf": stats["pf"],
             "pts": stats["pts"],
             "plus_minus": stats["plus_minus"],
-            "linear_PER": stats["linear_PER"]
+            "per": stats["linear_PER"]
         }
 
     def __parse_player_season_info(self, player_season):

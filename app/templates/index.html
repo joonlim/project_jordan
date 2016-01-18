@@ -2,10 +2,52 @@
 
 {% block content %}
 
+  <!-- carousel -->
+  <div id="myCarousel" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="item active">
+        <a href="{{ page.banner.link }}">
+          <img id="carousel-img" src="{{ url_for('static', filename=page.banner.path) }}" alt="{{ page.banner.name }}" class="img-responsive"></img>
+          <div class="carousel-caption">
+            <div class="header-text hidden-xs">
+              <div class="col-md-12 text-center">
+                <h1>
+                  <span>{{ page.header }}</span>
+                </h1>
+                <br>
+                <h3>
+                  <span>{{ page.header_msg }}</span>
+                </h3>
+                <br>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+<!--       {% for banner in banners %}
+      <div class="item">
+        <a href="{{ banner.link }}">
+          <img src="{{url_for('static', filename=page.banner.path)}}" alt="{{ page.banner.alt }}" class="img-responsive"></img>
+          <div class="carousel-caption">
+            <h3>{{ banner.name }}</h3>
+          </div>
+        </a>
+      </div>
+      {% endfor %} -->
+    </div>
+<!--     <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+      <span class="icon-next"></span>
+    </a> -->
+  </div>
+  <!-- end carousel -->
+
   <!-- jumbotron -->
 
   <!-- TODO: yahoo/bing/google search for player name + news -->
-  <div class="container">
+  <div id="home-news-container" class="container">
     <div class="jumbotron">
       <center>
       <h1>Player News</h1>
@@ -20,7 +62,7 @@
   <!-- responsive grid system -->
   <!-- row can only have 12 columns -->
   <!-- here we have 4 columns of size 3 -->
-  <div class="container" style="padding-bottom: 100px;">
+  <div id="bottom-container" class="container">
 
     <!-- no columns when smaller than 'medium' -->
     <!-- 2 players per row -->
@@ -29,14 +71,14 @@
     {% for row in player_rows %}
     <div class="row">
       {% for player in row %}
-      <div class="col-md-6" style="background-color: rgba(86,61,124,.15); border:1px solid rgba(86,61,124,.2);">
+      <div id="home-column" class="col-md-6">
         <div class="col-md-5">
-          <img src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" class="img-responsive" style="margin: auto; width: 100%; padding: 10px;"></img>
+          <img id="home-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" class="img-responsive center"></img>
         </div>
         <div class="col-md-7">
           <h3><a href="{{ player.link }}">{{ player.name }}</a></h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
-          <a href="#" class="btn btn-default" style="margin-bottom:18px;">Read More</a>
+          <a id="home-player-button" href="#" class="btn btn-default" >Read More</a>
         </div>
       </div>
       {% endfor %}
@@ -44,5 +86,18 @@
     {% endfor %}
   </div>
   <!-- end grid -->
+
+<script type="text/javascript">
+
+$(function() {
+
+  var btns = $(".btn");
+  btns.click(function() {
+    alert("hi");
+  });
+
+});  
+
+</script>
 
 {% endblock %}

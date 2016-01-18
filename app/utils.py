@@ -59,3 +59,33 @@ def ratio_string(num, den, digits_passed_decimal_point):
     else:
         ratio = num / den
         return digits % ratio
+
+
+def format_category(stat):
+    """
+    Format a category string displayed on the client.
+    """
+    format_dict = {
+        "min": "PTS",
+        "fgm": "FGM",
+        "fga": "FGA",
+        "fg_pct": "FG%",
+        "fg3m": "3PM",
+        "fg3a": "3PA",
+        "fg3_pct": "3P%",
+        "ftm": "FTM",
+        "fta": "FTA",
+        "ft_pct": "FT%",
+        "dreb": "DREB",
+        "oreb": "DREB",
+        "reb": "REB",
+        "ast": "AST",
+        "stl": "STL",
+        "blk": "BLK",
+        "tov": "TOV",
+        "pf": "PF",
+        "pts": "PTS",
+        "plus_minus": "+/-",
+        "per": "PER"
+    }
+    return format_dict[stat]

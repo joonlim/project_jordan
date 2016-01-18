@@ -1,0 +1,48 @@
+
+
+#bottom-container {
+	padding-bottom: 64px;
+}
+
+#home-news-container {
+	padding-top: 28px;
+}
+
+#home-column {
+	background-color: rgba(86,61,124,.15);
+	border: 1px solid rgba(86,61,124,.2);
+}
+
+#home-headshot-img {
+	padding: 10px;
+}
+
+#home-player-button {
+	margin-bottom: 18px;
+}
+
+#carousel-img {
+	opacity: 1.0;
+}
+
+#name-th {
+	min-width:175px;
+}
+
+#matchup-th {
+	min-width:92px;
+}
+
+.center {
+	margin: auto;
+	width: 100%;
+	text-align: center;
+}
+
+.carousel-caption {
+	margin-bottom: 30%;
+}
+
+.table {
+	font-size:12px;
+}

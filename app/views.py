@@ -58,7 +58,7 @@ def date_stats():
     if date == "" or date is None:
         date = utils.days_before_today(1)  # Yesterday's date
     if stat == "" or stat is None:
-        stat = 'linear_PER'
+        stat = 'per'
     if stat2 == "" or stat2 is None:
         stat2 = None
 
@@ -68,6 +68,20 @@ def date_stats():
 
     utils.sort_list_by_attribute(games, stat, stat2)
 
+    r = len(games) if len(games) <= 2 else 3
+    top_players = list()
+    for i in range(r):
+        player = dm.get_player_by_id(games[i]['_id'])
+        game = games[i]
+
+        top_players.append({
+            "player": player,
+            "game": game
+        })
+
+    top_div = 12 // len(top_players)
+    chosen_stat = utils.format_category(stat)
+
     return render_template("date_stats.html",
                            website=website,
                            page=page,
@@ -75,7 +89,10 @@ def date_stats():
                            date=date,
                            stat=stat,
                            stat2=stat2,
-                           games=games)
+                           chosen_stat=chosen_stat,
+                           top_players=top_players,
+                           games=games,
+                           top_div=top_div)
 
 
 # @app.route('/season_stats')
