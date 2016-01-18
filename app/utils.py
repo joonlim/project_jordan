@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 
 
 def group_into_pairs(items):
@@ -22,3 +23,39 @@ def group_into_pairs(items):
         i += 1
 
     return pairs
+
+
+def sort_list_by_attribute(list, attr, second_attr=None, reverse=True):
+    """
+    Sorts a list of dicts by an attribute. If a second attribute is given, then
+    this list sorted by both attributes (ties are broken with the second
+    attribute.)
+
+    This method sorts the given list, it does not return a new list.
+    """
+    if second_attr is not None:
+        list.sort(key=lambda x: (x[attr], x[second_attr]), reverse=reverse)
+    else:
+        list.sort(key=lambda x: x[attr], reverse=reverse)
+
+
+def days_before_today(days_to_subtract):
+    """
+    Returns yesterday's date as a string(formatted: "YYYY-MM-DD").
+    """
+    today = date.today()
+    prev_day = today - timedelta(days=days_to_subtract)
+    return prev_day.strftime("%Y-%m-%d")
+
+
+def ratio_string(num, den, digits_passed_decimal_point):
+    """
+    Returns the ratio num / den with an amount of digits after the decimal
+    equal to digits_passed_decimal_point. If den is 0, this returns 0.
+    """
+    digits = "%." + str(digits_passed_decimal_point) + "f"
+    if den == 0:
+        return digits % 0
+    else:
+        ratio = num / den
+        return digits % ratio

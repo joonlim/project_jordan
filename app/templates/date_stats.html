@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="padding-bottom: 100px; ">
+  <!-- test table -->
+<div class="table-responsive" style="overflow: auto">
+  <table class='table'>
+
+  <!-- Should be dynamic -->
+    <thead>
+      <tr>
+        <th style="min-width:180px">NAME</th>
+        <th><a href='date_stats?date={{ date }}&stat=min'>MIN</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fgm'>FGM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fga'>FGA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg_pct'>FG%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3m'>3PM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3a'>3PA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3_pct'>3P%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ftm'>FTM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fta'>FTA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ft_pct'>FT%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=dreb'>DREB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=oreb'>OREB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=reb'>REB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ast'>AST</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=stl'>STL</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=blk'>BLK</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=tov'>TOV</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=pf'>PF</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=pts'>PTS</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=plus_minus'>+/-</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=linear_PER'>PER</a></th>
+        <th>POS</th>
+        <th style="min-width:104px">TEAM</th>
+        <th style="min-width:104px">MATCHUP</th>
+        <th>WL</th>
+      </tr>
+    </thead>
+
+    {% for game in games %}
+    <tr>
+      <td><a href='{{ game.link }}'>{{ game.name }}</a></td>
+      <td>{{ game.min }}</td>
+      <td>{{ game.fgm }}</td>
+      <td>{{ game.fga }}</td>
+      <td>{{ game.fg_pct }}</td>
+      <td>{{ game.fg3m }}</td>
+      <td>{{ game.fg3a }}</td>
+      <td>{{ game.fg3_pct }}</td>
+      <td>{{ game.ftm }}</td>
+      <td>{{ game.fta }}</td>
+      <td>{{ game.ft_pct }}</td>
+      <td>{{ game.dreb }}</td>
+      <td>{{ game.oreb }}</td>
+      <td>{{ game.reb }}</td>
+      <td>{{ game.ast }}</td>
+      <td>{{ game.stl }}</td>
+      <td>{{ game.blk }}</td>
+      <td>{{ game.tov }}</td>
+      <td>{{ game.pf }}</td>
+      <td>{{ game.pts }}</td>
+      <td>{{ game.plus_minus }}</td>
+      <td>{{ game.linear_PER }}</td>
+      <td>{{ game.position }}</td>
+      <td>{{ game.team }}</td>
+      <td>{{ game.matchup }}</td>
+      <td>{{ game.wl }}</td>
+    </tr>
+    {% endfor %}
+    <thead>
+      <tr>
+        <th>NAME</th>
+        <th><a href='date_stats?date={{ date }}&stat=min'>MIN</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fgm'>FGM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fga'>FGA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg_pct'>FG%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3m'>3PM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3a'>3PA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fg3_pct'>3P%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ftm'>FTM</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=fta'>FTA</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ft_pct'>FT%</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=dreb'>DREB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=oreb'>OREB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=reb'>REB</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=ast'>AST</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=stl'>STL</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=blk'>BLK</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=tov'>TOV</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=pf'>PF</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=pts'>PTS</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=plus_minus'>+/-</a></th>
+        <th><a href='date_stats?date={{ date }}&stat=linear_PER'>PER</a></th>
+        <th>POS</th>
+        <th>TEAM</th>
+        <th>MATCHUP</th>
+        <th>WL</th>
+      </tr>
+    </thead>
+
+
+  </table>
+</div>
+
+</div>
+<!-- End table -->
+
+{% endblock %}

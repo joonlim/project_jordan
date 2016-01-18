@@ -20,6 +20,7 @@ class NBADatabase:
         """
         Given a season (ex: "2015-16"), return a list of seasons of each
         player.
+        A season contains a list of games.
         """
         return
 
@@ -41,6 +42,14 @@ class NBADatabase:
         """
         return
 
+    def get_player_season_by_id(self, id, season):
+        """
+        Given a player id and season (format: "2015-16"), return the document
+        of the given season of the player with the given id.
+        A season contains a list of games.
+        """
+        return
+
 
 class NBAMongoDB(NBADatabase):
     """
@@ -54,26 +63,28 @@ class NBAMongoDB(NBADatabase):
         self.db = client[DB_NAME]
 
     def get_players(self):
-        """
-        Return a list of players.
-        """
-        players_collection = self.db[PLAYERS_COL]
-        return players_collection
+        players_collection = self.__players_collection()
+        return players_collection.find()
 
     def get_seasons(self, season):
-        """
-        Given a season (ex: "2015-16"), return a list of seasons of each
-        player.
-        """
         # TODO: change db name to "2015_16"
-        season_col_name = "season" + season
-        season_collection = self.db[season_col_name]
-        return season_collection
+        season_collection = self.__season_collection(season)
+        return season_collection.find()
 
     def get_player_by_id(self, id):
-        """
-        Given a player id, return the player with that id.
-        """
-        players_collection = self.get_players()
+        players_collection = self.__players_collection()
         player = players_collection.find({"_id": id})[0]
         return player
+
+    def get_player_season_by_id(self, id, season):
+        # TODO: change db name to "2015_16"
+        season_collection = self.__season_collection(season)
+        season = season_collection.find({"_id": id})[0]
+        return season
+
+    def __players_collection(self):
+        return self.db[PLAYERS_COL]
+
+    def __season_collection(self, season):
+        season_col_name = "season" + season
+        return self.db[season_col_name]

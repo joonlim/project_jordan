@@ -35,6 +35,49 @@ def index():
                            player_rows=player_rows)
 
 
+@app.route('/date')
+@app.route('/date.html')
+@app.route('/date_stats')
+@app.route('/date_stats.html')
+def date_stats():
+    """
+    Games of players who played on a given date.
+    """
+    website = wm.info()
+
+    # Fake user for now
+    user = um.fake_user()
+
+    # Check if there is a date, stat, and secondary stat
+    # ex: ?date=2016-01-07&stat=AST&secondstat=PER
+    date = request.args.get('date')
+    stat = request.args.get('stat')
+    stat2 = request.args.get('stat2')
+
+    # Default date and stat. secondstat defaults to None.
+    if date == "" or date is None:
+        date = utils.days_before_today(1)  # Yesterday's date
+    if stat == "" or stat is None:
+        stat = 'linear_PER'
+    if stat2 == "" or stat2 is None:
+        stat2 = None
+
+    page = wm.new_page("Games on " + date)
+
+    games = dm.get_player_games_on_date(date, "2015-16")  # TODO: season name
+
+    utils.sort_list_by_attribute(games, stat, stat2)
+
+    return render_template("date_stats.html",
+                           website=website,
+                           page=page,
+                           user=user,
+                           date=date,
+                           stat=stat,
+                           stat2=stat2,
+                           games=games)
+
+
 # @app.route('/season_stats')
 # @app.route('/season_stats.html')
 # def season_stats():
@@ -54,9 +97,10 @@ def index():
 #                            banners=local_banners)
 
 
-
-# @app.route('/game_stats')
-# @app.route('/game_stats.html')
+# @app.route('/date')
+# @app.route('/date.html')
+# @app.route('/games_on_date')
+# @app.route('/games_on_date.html')
 # def game_stats():
 #     user = {
 #         'nickname': 'Joon',
@@ -67,18 +111,7 @@ def index():
 #     shuffle(local_banners)
 #     first_banner = local_banners.pop(0)
 
-#     # Check if there is a date, stat, and secondary stat
-#     # ex: ?date=2016-01-07&stat=AST&secondstat=PER
-#     date = request.args.get('date')
-#     stat = request.args.get('stat')
-#     secondstat = request.args.get('secondstat')
 
-#     if date == "" or date is None:
-#         date = datetime.datetime.utcnow().strftime("%Y-%m-%d")
-#     if stat == "" or stat is None:
-#         stat = 'linear_PER'
-#     if secondstat == "" or secondstat is None:
-#         secondstat = None
 
 #     sorted_players = nba_rank.rank_players_on_date(date, stat, secondstat)
 #     # optimize
