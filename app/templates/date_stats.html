@@ -15,8 +15,8 @@
       <input class="form-control" type="submit" value="Reload">
     </div>
   </div>
-  <input type="hidden" name="stat" type="text" value="{{ stat }}">
-  <input type="hidden" name="stat2" type="text" value="{{ stat2 }}">
+  <input type="hidden" name="stat" value="{{ stat }}">
+  <input type="hidden" name="stat2" value="{{ stat2 }}">
 </form>
 
 <hr>
@@ -84,27 +84,27 @@
       {% for game in games %}
       <tr>
         <td><a href='{{ game.link }}'>{{ game.name }}</a></td>
-        <td>{{ game.min }}</td>
-        <td>{{ game.fgm }}</td>
-        <td>{{ game.fga }}</td>
-        <td>{{ game.fg_pct }}</td>
-        <td>{{ game.fg3m }}</td>
-        <td>{{ game.fg3a }}</td>
-        <td>{{ game.fg3_pct }}</td>
-        <td>{{ game.ftm }}</td>
-        <td>{{ game.fta }}</td>
-        <td>{{ game.ft_pct }}</td>
-        <td>{{ game.dreb }}</td>
-        <td>{{ game.oreb }}</td>
-        <td>{{ game.reb }}</td>
-        <td>{{ game.ast }}</td>
-        <td>{{ game.stl }}</td>
-        <td>{{ game.blk }}</td>
-        <td>{{ game.tov }}</td>
-        <td>{{ game.pf }}</td>
-        <td>{{ game.pts }}</td>
-        <td>{{ game.plus_minus }}</td>
-        <td>{{ game.per }}</td>
+        {% if stat == "min" %}<td style="background-color:lightblue;">{{ game.min }}</td>{% else %}<td>{{ game.min }}</td>{% endif %}
+        {% if stat == "fgm" %}<td style="background-color:lightblue;">{{ game.fgm }}</td>{% else %}<td>{{ game.fgm }}</td>{% endif %}
+        {% if stat == "fga" %}<td style="background-color:lightblue;">{{ game.fga }}</td>{% else %}<td>{{ game.fga }}</td>{% endif %}
+        {% if stat == "fg_pct" %}<td style="background-color:lightblue;">{{ game.fg_pct }}</td>{% else %}<td>{{ game.fg_pct }}</td>{% endif %}
+        {% if stat == "fg3m" %}<td style="background-color:lightblue;">{{ game.fg3m }}</td>{% else %}<td>{{ game.fg3m }}</td>{% endif %}
+        {% if stat == "fg3a" %}<td style="background-color:lightblue;">{{ game.fg3a }}</td>{% else %}<td>{{ game.fg3a }}</td>{% endif %}
+        {% if stat == "fg3_pct" %}<td style="background-color:lightblue;">{{ game.fg3_pct }}</td>{% else %}<td>{{ game.fg3_pct }}</td>{% endif %}
+        {% if stat == "ftm" %}<td style="background-color:lightblue;">{{ game.ftm }}</td>{% else %}<td>{{ game.ftm }}</td>{% endif %}
+        {% if stat == "fta" %}<td style="background-color:lightblue;">{{ game.fta }}</td>{% else %}<td>{{ game.fta }}</td>{% endif %}
+        {% if stat == "ft_pct" %}<td style="background-color:lightblue;">{{ game.ft_pct }}</td>{% else %}<td>{{ game.ft_pct }}</td>{% endif %}
+        {% if stat == "dreb" %}<td style="background-color:lightblue;">{{ game.dreb }}</td>{% else %}<td>{{ game.dreb }}</td>{% endif %}
+        {% if stat == "oreb" %}<td style="background-color:lightblue;">{{ game.oreb }}</td>{% else %}<td>{{ game.oreb }}</td>{% endif %}
+        {% if stat == "reb" %}<td style="background-color:lightblue;">{{ game.reb }}</td>{% else %}<td>{{ game.reb }}</td>{% endif %}
+        {% if stat == "ast" %}<td style="background-color:lightblue;">{{ game.ast }}</td>{% else %}<td>{{ game.ast }}</td>{% endif %}
+        {% if stat == "stl" %}<td style="background-color:lightblue;">{{ game.stl }}</td>{% else %}<td>{{ game.stl }}</td>{% endif %}
+        {% if stat == "blk" %}<td style="background-color:lightblue;">{{ game.blk }}</td>{% else %}<td>{{ game.blk }}</td>{% endif %}
+        {% if stat == "tov" %}<td style="background-color:lightblue;">{{ game.tov }}</td>{% else %}<td>{{ game.tov }}</td>{% endif %}
+        {% if stat == "pf" %}<td style="background-color:lightblue;">{{ game.pf }}</td>{% else %}<td>{{ game.pf }}</td>{% endif %}
+        {% if stat == "pts" %}<td style="background-color:lightblue;">{{ game.pts }}</td>{% else %}<td>{{ game.pts }}</td>{% endif %}
+        {% if stat == "plus_minus" %}<td style="background-color:lightblue;">{{ game.plus_minus }}</td>{% else %}<td>{{ game.plus_minus }}</td>{% endif %}
+        {% if stat == "per" %}<td style="background-color:lightblue;">{{ game.per }}</td>{% else %}<td>{{ game.per }}</td>{% endif %}
         <td>{{ game.position }}</td>
         <td>{{ game.team }}</td>
         <td>{{ game.matchup }}</td>

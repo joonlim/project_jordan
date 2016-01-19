@@ -19,6 +19,7 @@ def index():
     """
     website = wm.info()
     page = wm.new_page("Home")
+    navbar = wm.nav_bar_pages()
 
     # Fake user for now
     user = um.fake_user()
@@ -32,6 +33,7 @@ def index():
     return render_template("index.html",
                            website=website,
                            page=page,
+                           navbar=navbar,
                            user=user,
                            player_rows=player_rows)
 
@@ -45,6 +47,7 @@ def date_stats():
     Games of players who played on a given date.
     """
     website = wm.info()
+    navbar = wm.nav_bar_pages(0)
 
     # Fake user for now
     user = um.fake_user()
@@ -91,6 +94,7 @@ def date_stats():
     return render_template("date_stats.html",
                            website=website,
                            page=page,
+                           navbar=navbar,
                            user=user,
                            date=date,
                            stat=stat,

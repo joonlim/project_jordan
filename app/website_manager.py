@@ -45,6 +45,32 @@ class WebsiteManager:
             "footer": FOOTER
         }
 
+    def nav_bar_pages(self, index=None):
+        """
+        Return a list containing the names of all subpages in order. This does
+        not include the home page since the button for home should always be on
+        the navigation bar. The index parameter should be the index of the page
+        calling this method to be displayed as active. If no index is given,
+        then no pages will be set to active.
+        """
+        nav_bar_pages = [
+            {
+                "title": "Performance",
+                "active": False,
+                "link": "date_stats"
+            },
+            {
+                "title": "Compare",
+                "active": False,
+                "link": "compare_players"
+            }
+        ]
+
+        if index is not None:
+            assert index >= 0 and index < len(nav_bar_pages)
+            nav_bar_pages[index]['active'] = True
+        return nav_bar_pages
+
     def __random_banner(self):
         """
         Returns a random banner image.

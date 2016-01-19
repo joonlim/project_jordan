@@ -1,3 +1,7 @@
+"""
+Utility functions related to NBA data.
+"""
+
 
 def format_category(stat):
     """
@@ -30,6 +34,9 @@ def format_category(stat):
 
 
 def parse_stat(stat, default):
+    if type(stat) is not str:
+        return default
+
     stat = stat.lower()
 
     switch = {

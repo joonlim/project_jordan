@@ -1,3 +1,7 @@
+"""
+General utility functions.
+"""
+
 from datetime import date, timedelta, datetime
 
 
@@ -66,6 +70,9 @@ def is_valid_date(date_string, deli="/"):
     Returns true if date_string is a string representing a date formatted
     DD/MM/YYYY, where the '/' is replaced by deli.
     """
+    if type(date_string) is not str:
+        return False
+
     format = "%m-%d-%Y".replace('-', deli)
     try:
         datetime.strptime(date_string, format)
