@@ -4,13 +4,13 @@
 
 <form action="">
   <div class="container" id="sandbox-container">
-    <h1 style="float:left;">Top Performers on
-    </h1>
-    <div style="float:left; padding-left:1em; padding-top: 4px;" class="input-daterange input-group" id="datepicker">
+    <h2 style="float:left;">Top Performers on
+    </h2>
+    <div style="float:left; padding-left:1em; padding-top: 2px; max-width:160px" class="input-daterange input-group" id="datepicker">
       <br>
-        <input class="input-sm form-control" name="date" type="text" value="{{ date }}">
+        <input style="font-size:20px" class="input-sm form-control" name="date" type="text" value="{{ date }}">
     </div>
-    <div style="float:left; padding-left:1em; padding-top: 2px">
+    <div style="float:left; padding-left:1em; padding-top: 0px">
       <br>
       <input class="form-control" type="submit" value="Reload">
     </div>
@@ -19,16 +19,14 @@
   <input type="hidden" name="stat2" type="text" value="{{ stat2 }}">
 </form>
 
-
 <hr>
 
 <!-- responsive grid system -->
-<div id="bottom-container" class="container">
+<div class="container">
 
   <!-- no columns when smaller than 'medium' -->
   <!-- 2 players per row -->
   <!-- TODO: Make players objects rather than dicts. link() should be a method. Displays more player info and graph. -->
-
   {% for top_player in top_players %}
   <div class="col-md-{{ top_div }}">
     <div class="col-md-5">
