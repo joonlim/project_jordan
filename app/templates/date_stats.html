@@ -42,6 +42,10 @@
 <!-- end grid -->
 
 <div id="bottom-container" class="container">
+
+
+  {% if top_players|length != 0 %}
+
   <!-- test table -->
   <div class="table-responsive">
     <table class='table'>
@@ -111,6 +115,10 @@
 
     </table>
   </div>
+
+  {% else %}
+  <h3>No games on that day...</h3>
+  {% endif %}
 </div>
 <!-- End table -->
 
