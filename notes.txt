@@ -1,4 +1,35 @@
 TODO: Parse positions of player
+http://espn.go.com/nba/players/_/position/c
+http://espn.go.com/nba/players/_/position/pf
+http://espn.go.com/nba/players/_/position/sf
+http://espn.go.com/nba/players/_/position/pg
+http://espn.go.com/nba/players/_/position/sg
+https://sports.yahoo.com/nba/players?type=position&c=NBA&pos=PG
+https://basketballmonster.com/DepthCharts.aspx
+http://www.cbssports.com/nba/teams/roster/BOS/boston-celtics
+
+TODO: Flask .htaccess for names and teams
+http://enarion.net/web/htaccess/trailing-slash/
+http://stackoverflow.com/questions/27271444/getting-flask-to-use-the-desired-url-behind-mod-rewrite
+http://stackoverflow.com/questions/10186204/flask-htaccess-for-fastcgi
+
+
+TODO: Multithreaded scraping
+
+
+
+TODO: Player injuries
+https://basketballmonster.com/DepthCharts.aspx
+http://stats.nba.com/fantasynews/
+
+TODO: Dwonload team logo images, use them with .3 opacity as background for player images/columns
+
+TODO: teams
+http://stats.nba.com/stats/teaminfocommon?Season=2015-16&TeamID=1610612758&LeagueID=00&SeasonType=Regular+Season
+http://stats.nba.com/stats/commonteamroster?TeamID=1610612758&Season=2015-16
+https://github.com/nickb1080/nba/blob/master/data/teams.json
+https://basketballmonster.com/depthcharts.aspx?team=1
+http://www.cbssports.com/nba/teams/roster/BOS/boston-celtics
 
 TODO: Create player dicts using the data from db.
 
@@ -24,6 +55,7 @@ http://stats.nba.com/media/logos/LAL_80x64.png
 TODO: fix scraper if winner is null
 
  TODO: yahoo/bing/google search for player name + news
+ http://stats.nba.com/fantasynews/
 
  TODO: site icon
 

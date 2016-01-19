@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 
 def group_into_pairs(items):
@@ -39,13 +39,13 @@ def sort_list_by_attribute(list, attr, second_attr=None, reverse=True):
         list.sort(key=lambda x: x[attr], reverse=reverse)
 
 
-def days_before_today(days_to_subtract):
+def days_before_today(days_to_subtract, format="%Y-%m-%d"):
     """
     Returns yesterday's date as a string(formatted: "YYYY-MM-DD").
     """
     today = date.today()
     prev_day = today - timedelta(days=days_to_subtract)
-    return prev_day.strftime("%Y-%m-%d")
+    return prev_day.strftime(format)
 
 
 def ratio_string(num, den, digits_passed_decimal_point):
@@ -61,31 +61,15 @@ def ratio_string(num, den, digits_passed_decimal_point):
         return digits % ratio
 
 
-def format_category(stat):
+def is_valid_date(date_string, deli="/"):
     """
-    Format a category string displayed on the client.
+    Returns true if date_string is a string representing a date formatted
+    DD/MM/YYYY, where the '/' is replaced by deli.
     """
-    format_dict = {
-        "min": "PTS",
-        "fgm": "FGM",
-        "fga": "FGA",
-        "fg_pct": "FG%",
-        "fg3m": "3PM",
-        "fg3a": "3PA",
-        "fg3_pct": "3P%",
-        "ftm": "FTM",
-        "fta": "FTA",
-        "ft_pct": "FT%",
-        "dreb": "DREB",
-        "oreb": "DREB",
-        "reb": "REB",
-        "ast": "AST",
-        "stl": "STL",
-        "blk": "BLK",
-        "tov": "TOV",
-        "pf": "PF",
-        "pts": "PTS",
-        "plus_minus": "+/-",
-        "per": "PER"
-    }
-    return format_dict[stat]
+    format = "%m-%d-%Y".replace('-', deli)
+    try:
+        datetime.strptime(date_string, format)
+        return True
+    except ValueError:
+        # raise ValueError("Incorrect data format, should be MM-DD-YYYY")
+        return False

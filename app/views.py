@@ -3,6 +3,7 @@ from app import app
 from flask import request
 
 import app.utils as utils
+import app.nba_utils as nba
 
 from app.website_manager import website_manager as wm
 from app.nba_data_manager import data_manager as dm
@@ -55,16 +56,17 @@ def date_stats():
     stat2 = request.args.get('stat2')
 
     # Default date and stat. secondstat defaults to None.
-    if date == "" or date is None:
-        date = utils.days_before_today(1)  # Yesterday's date
-    if stat == "" or stat is None:
-        stat = 'per'
-    if stat2 == "" or stat2 is None:
-        stat2 = None
+    if not utils.is_valid_date(date, "-"):
+        date = utils.days_before_today(1, "%m-%d-%Y")  # Yesterday's date
+
+    stat = nba.parse_stat(stat, "per")   # If stat is incorrect form or empty, it defaults to per.
+    stat2 = nba.parse_stat(stat2, None)  # If stat is incorrect form or empty, it defaults to None.
 
     page = wm.new_page("Games on " + date)
 
-    games = dm.get_player_games_on_date(date, "2015-16")  # TODO: season name
+    # Format date to YYYY-MM-DD
+    formatted_date = date[6:] + "-" + date[:5]
+    games = dm.get_player_games_on_date(formatted_date, "2015-16")  # TODO: season name
 
     utils.sort_list_by_attribute(games, stat, stat2)
 
@@ -79,8 +81,12 @@ def date_stats():
             "game": game
         })
 
-    top_div = 12 // len(top_players)
-    chosen_stat = utils.format_category(stat)
+    if len(top_players) != 0:
+        top_div = 12 // len(top_players)
+    else:
+        top_div = 0
+
+    chosen_stat = nba.format_category(stat)
 
     return render_template("date_stats.html",
                            website=website,

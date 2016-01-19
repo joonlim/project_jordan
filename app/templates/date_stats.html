@@ -2,33 +2,46 @@
 
 {% block content %}
 
-  <!-- responsive grid system -->
-  <!-- row can only have 12 columns -->
-  <!-- here we have 4 columns of size 3 -->
-  <div id="bottom-container" class="container">
-
-    <!-- no columns when smaller than 'medium' -->
-    <!-- 2 players per row -->
-    <!-- TODO: Make players objects rather than dicts. link() should be a method. Displays more player info and graph. -->
-
-    {% for top_player in top_players %}
-    <div class="col-md-{{ top_div }}">
-      <div class="col-md-5">
-        <img id="home-headshot-img" src="{{ url_for('static', filename=top_player.player.headshot_img.path )}}" alt="{{ top_player.player.headshot_img.alt }}" class="img-responsive center"></img>
-      </div>
-      <div class="col-md-7" style="padding-top:30px">
-        <h4 class="center"><a href="{{ top_player.player.link }}">{{ top_player.player.name }}</a></h4>
-        <p class="center">{{ chosen_stat }} = {{ top_player.game[stat] }}</p>
-      </div>
+<form action="">
+  <div class="container" id="sandbox-container">
+    <h1 style="float:left;">Top Performers on
+    </h1>
+    <div style="float:left; padding-left:1em; padding-top: 4px;" class="input-daterange input-group" id="datepicker">
+      <br>
+        <input class="input-sm form-control" name="date" type="text" value="{{ date }}">
     </div>
-    {% endfor %}
+    <div style="float:left; padding-left:1em; padding-top: 2px">
+      <br>
+      <input class="form-control" type="submit" value="Reload">
+    </div>
   </div>
-  <!-- end grid -->
+  <input type="hidden" name="stat" type="text" value="{{ stat }}">
+  <input type="hidden" name="stat2" type="text" value="{{ stat2 }}">
+</form>
 
 
+<hr>
 
+<!-- responsive grid system -->
+<div id="bottom-container" class="container">
 
+  <!-- no columns when smaller than 'medium' -->
+  <!-- 2 players per row -->
+  <!-- TODO: Make players objects rather than dicts. link() should be a method. Displays more player info and graph. -->
 
+  {% for top_player in top_players %}
+  <div class="col-md-{{ top_div }}">
+    <div class="col-md-5">
+      <img id="home-headshot-img" src="{{ url_for('static', filename=top_player.player.headshot_img.path )}}" alt="{{ top_player.player.headshot_img.alt }}" class="img-responsive center"></img>
+    </div>
+    <div class="col-md-7" style="padding-top:30px">
+      <h4 class="center"><a href="{{ top_player.player.link }}">{{ top_player.player.name }}</a></h4>
+      <p class="center">{{ chosen_stat }} = {{ top_player.game[stat] }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!-- end grid -->
 
 <div id="bottom-container" class="container">
   <!-- test table -->
@@ -103,4 +116,6 @@
 </div>
 <!-- End table -->
 
+
+<script src="{{ url_for('static',filename='js/date_stats.js') }}"></script>
 {% endblock %}
