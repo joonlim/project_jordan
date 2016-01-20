@@ -55,14 +55,19 @@ class WebsiteManager:
         """
         nav_bar_pages = [
             {
-                "title": "Performance",
+                "title": "Season",
                 "active": False,
-                "link": "date_stats"
+                "link": "season"
+            },
+            {
+                "title": "Daily",
+                "active": False,
+                "link": "daily"
             },
             {
                 "title": "Compare",
                 "active": False,
-                "link": "compare_players"
+                "link": "compare"
             }
         ]
 

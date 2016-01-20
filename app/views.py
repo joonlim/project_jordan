@@ -9,6 +9,11 @@ from app.website_manager import website_manager as wm
 from app.nba_data_manager import data_manager as dm
 from app.user_manager import user_manager as um
 
+# Order of buttons on navigation bar.
+SEASON = 0
+DAILY = 1
+COMPARE = 2
+
 
 @app.route('/')
 @app.route('/index')
@@ -40,14 +45,14 @@ def index():
 
 @app.route('/date')
 @app.route('/date.html')
-@app.route('/date_stats')
-@app.route('/date_stats.html')
-def date_stats():
+@app.route('/daily')
+@app.route('/daily.html')
+def daily():
     """
     Games of players who played on a given date.
     """
     website = wm.info()
-    navbar = wm.nav_bar_pages(0)
+    navbar = wm.nav_bar_pages(DAILY)
 
     # Fake user for now
     user = um.fake_user()
@@ -91,7 +96,7 @@ def date_stats():
 
     chosen_stat = nba.format_category(stat)
 
-    return render_template("date_stats.html",
+    return render_template("daily.html",
                            website=website,
                            page=page,
                            navbar=navbar,

@@ -1,12 +1,10 @@
-**TODO: Navigation bar setup
-
-
 
 
 http://jinja.pocoo.org/docs/dev/templates/#builtin-filters
 
 
 
+TODO: Refactor webscraper
 
 TODO: Parse positions of player
 http://espn.go.com/nba/players/_/position/c
