@@ -2,34 +2,289 @@
 
 {% block content %}
 
+  {% if player %}
   <meta id="primary-color" data="{{ team.color.primary }}">
   <meta id="secondary-color" data="{{ team.color.secondary }}">
   <meta id="primary-font-color" data="{{ team.color.primary_font }}">
   <meta id="secondary-font-color" data="{{ team.color.secondary_font }}">
+  {% else %}
+  <meta id="primary-color" data="#F4F4F8">
+  <meta id="secondary-color" data="#F4F4F8">
+  <meta id="primary-font-color" data="black">
+  <meta id="secondary-font-color" data="#F4F4F8">
+  {% endif %}
 
   <div id="bottom-container" class="container">
 
   {% if player %}
-    <div id="home-column">
-      <div style="margin: 16px; padding: 30px; height: 215px; width: 400px;  background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
-        <img  id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
+    <div class="row">
+      <div style="padding:15px">
+        <div style="margin: 16px; padding: 30px; height: 215px; width: 400px;  background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
+          <img id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
+        </div>
       </div>
       <div class="col-md-7">
-        <div class="row" style="padding: 16px">
-          <h1 id="name-header"><b>{{ player.name }}</b></h1>
+        <div class="row" style="padding: 4px">
+          <h1 class="container-text"><b>{{ player.name }}</b></h1>
           <hr>
-          <thead>
-            <tr>
-              <th id="name-th">NAME</th>
-               {{ team.color.primary }}
-            </tr>
-          </thead>
-
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
+          <div class="col-md-6">
+            <div class="info-card">
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Position:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.position }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Jersey:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">#{{ player.jersey }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Height:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.height.replace("-", "' ") + "\"" }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Weight:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.weight }} lbs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="info-card">
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Birthdate:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.birthdate[5:].replace('-', '/') + "/" + player.birthdate[:4] }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">School:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.school }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Country:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.country }}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;">Years Active:</span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;">{{ player.to_year - player.from_year }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
+        <h4 class="container-text"><b>Average</b></h4>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>MIN</th>
+              <th>FGM</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3PM</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>FTM</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>DREB</th>
+              <th>OREB</th>
+              <th>REB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+              <th>+/-</th>
+              <th>PER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{ season.average.min }}</th>
+              <th>{{ season.average.fgm }}</th>
+              <th>{{ season.average.fga }}</th>
+              <th>{{ season.average.fg_pct }}</th>
+              <th>{{ season.average.fg3m }}</th>
+              <th>{{ season.average.fg3a }}</th>
+              <th>{{ season.average.fg3_pct }}</th>
+              <th>{{ season.average.ftm }}</th>
+              <th>{{ season.average.fta }}</th>
+              <th>{{ season.average.ft_pct }}</th>
+              <th>{{ season.average.dreb }}</th>
+              <th>{{ season.average.oreb }}</th>
+              <th>{{ season.average.reb }}</th>
+              <th>{{ season.average.ast }}</th>
+              <th>{{ season.average.stl }}</th>
+              <th>{{ season.average.blk }}</th>
+              <th>{{ season.average.tov }}</th>
+              <th>{{ season.average.pf }}</th>
+              <th>{{ season.average.pts }}</th>
+              <th>{{ season.average.plus_minus }}</th>
+              <th>{{ season.average.per }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
+        <h4 class="container-text"><b>Total</b></h4>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>MIN</th>
+              <th>FGM</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3PM</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>FTM</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>DREB</th>
+              <th>OREB</th>
+              <th>REB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+              <th>+/-</th>
+              <th>PER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{ season.total.min }}</th>
+              <th>{{ season.total.fgm }}</th>
+              <th>{{ season.total.fga }}</th>
+              <th>{{ season.total.fg_pct }}</th>
+              <th>{{ season.total.fg3m }}</th>
+              <th>{{ season.total.fg3a }}</th>
+              <th>{{ season.total.fg3_pct }}</th>
+              <th>{{ season.total.ftm }}</th>
+              <th>{{ season.total.fta }}</th>
+              <th>{{ season.total.ft_pct }}</th>
+              <th>{{ season.total.dreb }}</th>
+              <th>{{ season.total.oreb }}</th>
+              <th>{{ season.total.reb }}</th>
+              <th>{{ season.total.ast }}</th>
+              <th>{{ season.total.stl }}</th>
+              <th>{{ season.total.blk }}</th>
+              <th>{{ season.total.tov }}</th>
+              <th>{{ season.total.pf }}</th>
+              <th>{{ season.total.pts }}</th>
+              <th>{{ season.total.plus_minus }}</th>
+              <th>{{ season.total.per }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
+        <h4 class="container-text"><b>Season</b></h4>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>MATCHUP</th>
+              <th>WL</th>
+              <th>MIN</th>
+              <th>FGM</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3PM</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>FTM</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>DREB</th>
+              <th>OREB</th>
+              <th>REB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+              <th>+/-</th>
+              <th>PER</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for game in season.games %}
+            <tr>
+              <th><a href="date?date={{ game.date.replace('/', '-') }}">{{ game.date }}</a></th>
+              <th>{{ game.matchup }}</th>
+              <th>{{ game.wl }}</th>
+              <th>{{ game.min }}</th>
+              <th>{{ game.fgm }}</th>
+              <th>{{ game.fga }}</th>
+              <th>{{ game.fg_pct }}</th>
+              <th>{{ game.fg3m }}</th>
+              <th>{{ game.fg3a }}</th>
+              <th>{{ game.fg3_pct }}</th>
+              <th>{{ game.ftm }}</th>
+              <th>{{ game.fta }}</th>
+              <th>{{ game.ft_pct }}</th>
+              <th>{{ game.dreb }}</th>
+              <th>{{ game.oreb }}</th>
+              <th>{{ game.reb }}</th>
+              <th>{{ game.ast }}</th>
+              <th>{{ game.stl }}</th>
+              <th>{{ game.blk }}</th>
+              <th>{{ game.tov }}</th>
+              <th>{{ game.pf }}</th>
+              <th>{{ game.pts }}</th>
+              <th>{{ game.plus_minus }}</th>
+              <th>{{ game.per }}</th>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% else %}
+  <h3>No player by that name...</h3>
   {% endif %}
 
   </div>
@@ -62,15 +317,42 @@ $(function() {
     "border-color": secondary_font_color
   });
 
-  var name_header = $("#name-header");
-  name_header.css({
+  var container_text = $(".container-text");
+  container_text.css({
     "color": secondary_font_color
+  });
+
+  var info_card = $(".info-card");
+  info_card.css({
+    "background-color": secondary_font_color,
+    "padding": "8px",
+    "border": "1px solid " + primary_font_color,
+    "color": secondary_color
   });
 
   var hr = $("hr");
   hr.css({
     "border-color": primary_color
   });
+
+  var table = $("table");
+  table.css({
+    "border": "1px solid " + primary_color
+  });
+
+  var thead = $("thead");
+  thead.css({
+    "color": primary_font_color,
+    "background-color": primary_color
+  });
+
+  var tbody = $("tbody");
+  tbody.css({
+    "color": "black"
+  });
+
+  $("tbody > tr:even").css("background-color", "#F4F4F8");
+  $("tbody > tr:odd").css("background-color", "#EFF1F1");
 
 });
 

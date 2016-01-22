@@ -10,15 +10,15 @@
   <div id="bottom-container" class="container">
 
   {% if team %}
-    <div id="home-column">
+    <div>
       <div class="col-md-5">
         <img style="padding: 30px" id="team-logo-img" src="{{ url_for('static', filename=team.logo_img.path )}}" alt="{{ team.logo_img.alt }}" class="img-responsive center"></img>
       </div>
       <div class="col-md-7">
         <div class="row" style="padding: 16px">
-          <h1 id="name-header"><b>{{ team.city + " " + team.name }}</b></h1>
+          <h1 class="container-text"><b>{{ team.city + " " + team.name }}</b></h1>
           <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
+          <p class="container-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
         </div>
       </div>
     </div>
@@ -54,9 +54,14 @@ $(function() {
     "border-color": secondary_font_color
   });
 
-  var name_header = $("#name-header");
-  name_header.css({
+  var container_text = $(".container-text");
+  container_text.css({
     "color": secondary_font_color
+  });
+
+  var hr = $("hr");
+  hr.css({
+    "border-color": primary_color
   });
 
 });  

@@ -33,6 +33,8 @@ class NBADataManager:
         player with that name (ignore case).
         """
         player = self.db.get_player_by_name(name)
+        if player is None:
+            return
 
         # Format dict to be returned.
         player_info = self.__parse_player_info(player)
@@ -65,8 +67,8 @@ class NBADataManager:
     def get_all_player_games_on_date(self, date, season):
         """
         Given a list of player ids, a date (format: "YYYY-MM-DD"), and the
-        matching season, return a list of dicts with player game information
-        for players who have played on the given date.
+        matching season, return a list of dicts that map a player's id to their
+        game information on the given date.
         """
         seasons = self.db.get_seasons(season)
 
@@ -82,10 +84,12 @@ class NBADataManager:
         player_games_on_date_list = list()
         for id in player_dict:
             # Format dicts to be returned.
-            player_info = self.get_player_by_id(id)
             game = player_dict[id]
-            player_game_info = self.__parse_game_stats(player_info, game)
-            player_games_on_date_list.append(player_game_info)
+            player_game_info = self.__parse_game_stats(game)
+            player_games_on_date_list.append({
+                "_id": id,
+                "game": player_game_info
+            })
 
         return player_games_on_date_list
 
@@ -124,7 +128,7 @@ class NBADataManager:
             .replace("'", "")
         return alt
 
-    def __parse_game_stats(self, player_info, game_doc):
+    def __parse_game_stats(self, game_doc):
         """
         Given a player_info dict and game document, create a dict representing
         the player stats of the game to be returned to the client.
@@ -162,22 +166,26 @@ class NBADataManager:
             }
         }
         """
-        name = player_info['name']
-        link = name.replace(' ', '_')
-        team = player_info["team"]["abbrev"]
-        position = player_info['position']
+        home = game_doc.get("home", "NOT A GAME")
+        if home != "NOT A GAME":
+            date = game_doc["date"].replace("-", "/")
+            formatted_date = date[5:] + "/" + date[:4]
+            home = game_doc["home"]
+            away = game_doc["away"]
+            matchup = away + " @ " + home
+            winner = game_doc["winner"]
+            if winner == "Undecided":
+                wl = "Ongoing"
+            else:
+                wl = "W" if home == winner else "L"
 
-        home = game_doc["home"]
-        away = game_doc["away"]
-        matchup = home + " vs. " + away if home == team\
-            else home + " @ " + away
-        winner = game_doc["winner"]
-        if winner == "Undecided":
-            wl = "Ongoing"
+            stats = game_doc["statistics"]
         else:
-            wl = "W" if home == winner else "L"
+            formatted_date = ""
+            matchup = ""
+            wl = ""
 
-        stats = game_doc["statistics"]
+            stats = game_doc
 
         fgm = stats["fgm"]
         fga = stats["fga"]
@@ -190,11 +198,7 @@ class NBADataManager:
         ft_pct = utils.ratio_string(ftm, fta, 3)
 
         return {
-            "_id": player_info['_id'],
-            "name": name,
-            "link": link,
-            "team": team,
-            "position": position,
+            "date": formatted_date,
             "matchup": matchup,
             "wl": wl,
             "min": stats["min"],

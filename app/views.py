@@ -14,6 +14,8 @@ SEASON = 0
 DAILY = 1
 COMPARE = 2
 
+CURRENT_SEASON = "2015-16"
+
 
 @app.route('/')
 @app.route('/index')
@@ -70,29 +72,34 @@ def daily():
     stat = nba.parse_stat(stat, "per")   # If stat is incorrect form or empty, it defaults to per.
     stat2 = nba.parse_stat(stat2, None)  # If stat is incorrect form or empty, it defaults to None.
 
-    page = wm.new_page("Games on " + date)
+    page = wm.new_page("Games on " + date.replace("-", "/"))
 
     # Format date to YYYY-MM-DD
     formatted_date = date[6:] + "-" + date[:5]
-    games = dm.get_all_player_games_on_date(formatted_date, "2015-16")  # TODO: season name
+    games_maps_list = dm.get_all_player_games_on_date(formatted_date, CURRENT_SEASON)  # TODO: season name
 
-    utils.sort_list_by_attribute(games, stat, stat2)
+    if stat2 is not None:
+        games_maps_list.sort(key=lambda x: (x['game'][stat], x['game'][stat2]), reverse=True)
+    else:
+        games_maps_list.sort(key=lambda x: x['game'][stat], reverse=True)
 
-    r = len(games) if len(games) <= 2 else 3
     top_players = list()
-    for i in range(r):
-        player = dm.get_player_by_id(games[i]['_id'])
-        game = games[i]
+    num_top_players = len(games_maps_list) if len(games_maps_list) <= 2 else 3
+    if num_top_players != 0:
+        top_div = 12 // num_top_players
+    else:
+        top_div = 0
 
-        top_players.append({
+    players = list()
+    for i in range(len(games_maps_list)):
+        player = dm.get_player_by_id(games_maps_list[i]['_id'])
+        game = games_maps_list[i]['game']
+        players.append({
             "player": player,
             "game": game
         })
-
-    if len(top_players) != 0:
-        top_div = 12 // len(top_players)
-    else:
-        top_div = 0
+        if i < 3:
+            top_players.append(players[i])
 
     chosen_stat = nba.format_category(stat)
 
@@ -106,7 +113,7 @@ def daily():
                            stat2=stat2,
                            chosen_stat=chosen_stat,
                            top_players=top_players,
-                           games=games,
+                           players=players,
                            top_div=top_div)
 
 
@@ -169,11 +176,18 @@ def player():
         name = name.replace('_', " ")
         name = name.replace('+', " ")
         player = dm.get_player_by_name(name)
-        team = dm.get_team_by_abbrev(player['team']['abbrev'])
-        page = wm.new_page(player['name'])
+        if player is not None:
+            team = dm.get_team_by_abbrev(player['team']['abbrev'])
+            page = wm.new_page(player['name'])
+            season = dm.get_player_season_by_id(player['_id'], CURRENT_SEASON)
+        else:
+            team = None
+            season = None
+            page = wm.new_page("Players")
     else:
         player = None
         team = None
+        season = None
         page = wm.new_page("Players")
 
     # TODO LOGIC, by game or by week, etc
@@ -184,7 +198,8 @@ def player():
                            user=user,
                            navbar=navbar,
                            player=player,
-                           team=team)
+                           team=team,
+                           season=season)
 
 
 @app.route('/team')

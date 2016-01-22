@@ -80,37 +80,38 @@
           <th>WL</th>
         </tr>
       </thead>
-
-      {% for game in games %}
-      <tr>
-        <td><a href='{{ game.link }}'>{{ game.name }}</a></td>
-        {% if stat == "min" %}<td style="background-color:lightblue;">{{ game.min }}</td>{% else %}<td>{{ game.min }}</td>{% endif %}
-        {% if stat == "fgm" %}<td style="background-color:lightblue;">{{ game.fgm }}</td>{% else %}<td>{{ game.fgm }}</td>{% endif %}
-        {% if stat == "fga" %}<td style="background-color:lightblue;">{{ game.fga }}</td>{% else %}<td>{{ game.fga }}</td>{% endif %}
-        {% if stat == "fg_pct" %}<td style="background-color:lightblue;">{{ game.fg_pct }}</td>{% else %}<td>{{ game.fg_pct }}</td>{% endif %}
-        {% if stat == "fg3m" %}<td style="background-color:lightblue;">{{ game.fg3m }}</td>{% else %}<td>{{ game.fg3m }}</td>{% endif %}
-        {% if stat == "fg3a" %}<td style="background-color:lightblue;">{{ game.fg3a }}</td>{% else %}<td>{{ game.fg3a }}</td>{% endif %}
-        {% if stat == "fg3_pct" %}<td style="background-color:lightblue;">{{ game.fg3_pct }}</td>{% else %}<td>{{ game.fg3_pct }}</td>{% endif %}
-        {% if stat == "ftm" %}<td style="background-color:lightblue;">{{ game.ftm }}</td>{% else %}<td>{{ game.ftm }}</td>{% endif %}
-        {% if stat == "fta" %}<td style="background-color:lightblue;">{{ game.fta }}</td>{% else %}<td>{{ game.fta }}</td>{% endif %}
-        {% if stat == "ft_pct" %}<td style="background-color:lightblue;">{{ game.ft_pct }}</td>{% else %}<td>{{ game.ft_pct }}</td>{% endif %}
-        {% if stat == "dreb" %}<td style="background-color:lightblue;">{{ game.dreb }}</td>{% else %}<td>{{ game.dreb }}</td>{% endif %}
-        {% if stat == "oreb" %}<td style="background-color:lightblue;">{{ game.oreb }}</td>{% else %}<td>{{ game.oreb }}</td>{% endif %}
-        {% if stat == "reb" %}<td style="background-color:lightblue;">{{ game.reb }}</td>{% else %}<td>{{ game.reb }}</td>{% endif %}
-        {% if stat == "ast" %}<td style="background-color:lightblue;">{{ game.ast }}</td>{% else %}<td>{{ game.ast }}</td>{% endif %}
-        {% if stat == "stl" %}<td style="background-color:lightblue;">{{ game.stl }}</td>{% else %}<td>{{ game.stl }}</td>{% endif %}
-        {% if stat == "blk" %}<td style="background-color:lightblue;">{{ game.blk }}</td>{% else %}<td>{{ game.blk }}</td>{% endif %}
-        {% if stat == "tov" %}<td style="background-color:lightblue;">{{ game.tov }}</td>{% else %}<td>{{ game.tov }}</td>{% endif %}
-        {% if stat == "pf" %}<td style="background-color:lightblue;">{{ game.pf }}</td>{% else %}<td>{{ game.pf }}</td>{% endif %}
-        {% if stat == "pts" %}<td style="background-color:lightblue;">{{ game.pts }}</td>{% else %}<td>{{ game.pts }}</td>{% endif %}
-        {% if stat == "plus_minus" %}<td style="background-color:lightblue;">{{ game.plus_minus }}</td>{% else %}<td>{{ game.plus_minus }}</td>{% endif %}
-        {% if stat == "per" %}<td style="background-color:lightblue;">{{ game.per }}</td>{% else %}<td>{{ game.per }}</td>{% endif %}
-        <td>{{ game.position }}</td>
-        <td>{{ game.team }}</td>
-        <td>{{ game.matchup }}</td>
-        <td>{{ game.wl }}</td>
-      </tr>
-      {% endfor %}
+      <tbody>
+        {% for p in players %}
+        <tr>
+          <td><a href='{{ p.player.link }}'>{{ p.player.name }}</a></td>
+          {% if stat == "min" %}<td style="background-color:lightblue;">{{ p.game.min }}</td>{% else %}<td>{{ p.game.min }}</td>{% endif %}
+          {% if stat == "fgm" %}<td style="background-color:lightblue;">{{ p.game.fgm }}</td>{% else %}<td>{{ p.game.fgm }}</td>{% endif %}
+          {% if stat == "fga" %}<td style="background-color:lightblue;">{{ p.game.fga }}</td>{% else %}<td>{{ p.game.fga }}</td>{% endif %}
+          {% if stat == "fg_pct" %}<td style="background-color:lightblue;">{{ p.game.fg_pct }}</td>{% else %}<td>{{ p.game.fg_pct }}</td>{% endif %}
+          {% if stat == "fg3m" %}<td style="background-color:lightblue;">{{ p.game.fg3m }}</td>{% else %}<td>{{ p.game.fg3m }}</td>{% endif %}
+          {% if stat == "fg3a" %}<td style="background-color:lightblue;">{{ p.game.fg3a }}</td>{% else %}<td>{{ p.game.fg3a }}</td>{% endif %}
+          {% if stat == "fg3_pct" %}<td style="background-color:lightblue;">{{ p.game.fg3_pct }}</td>{% else %}<td>{{ p.game.fg3_pct }}</td>{% endif %}
+          {% if stat == "ftm" %}<td style="background-color:lightblue;">{{ p.game.ftm }}</td>{% else %}<td>{{ p.game.ftm }}</td>{% endif %}
+          {% if stat == "fta" %}<td style="background-color:lightblue;">{{ p.game.fta }}</td>{% else %}<td>{{ p.game.fta }}</td>{% endif %}
+          {% if stat == "ft_pct" %}<td style="background-color:lightblue;">{{ p.game.ft_pct }}</td>{% else %}<td>{{ p.game.ft_pct }}</td>{% endif %}
+          {% if stat == "dreb" %}<td style="background-color:lightblue;">{{ p.game.dreb }}</td>{% else %}<td>{{ p.game.dreb }}</td>{% endif %}
+          {% if stat == "oreb" %}<td style="background-color:lightblue;">{{ p.game.oreb }}</td>{% else %}<td>{{ p.game.oreb }}</td>{% endif %}
+          {% if stat == "reb" %}<td style="background-color:lightblue;">{{ p.game.reb }}</td>{% else %}<td>{{ p.game.reb }}</td>{% endif %}
+          {% if stat == "ast" %}<td style="background-color:lightblue;">{{ p.game.ast }}</td>{% else %}<td>{{ p.game.ast }}</td>{% endif %}
+          {% if stat == "stl" %}<td style="background-color:lightblue;">{{ p.game.stl }}</td>{% else %}<td>{{ p.game.stl }}</td>{% endif %}
+          {% if stat == "blk" %}<td style="background-color:lightblue;">{{ p.game.blk }}</td>{% else %}<td>{{ p.game.blk }}</td>{% endif %}
+          {% if stat == "tov" %}<td style="background-color:lightblue;">{{ p.game.tov }}</td>{% else %}<td>{{ p.game.tov }}</td>{% endif %}
+          {% if stat == "pf" %}<td style="background-color:lightblue;">{{ p.game.pf }}</td>{% else %}<td>{{ p.game.pf }}</td>{% endif %}
+          {% if stat == "pts" %}<td style="background-color:lightblue;">{{ p.game.pts }}</td>{% else %}<td>{{ p.game.pts }}</td>{% endif %}
+          {% if stat == "plus_minus" %}<td style="background-color:lightblue;">{{ p.game.plus_minus }}</td>{% else %}<td>{{ p.game.plus_minus }}</td>{% endif %}
+          {% if stat == "per" %}<td style="background-color:lightblue;">{{ p.game.per }}</td>{% else %}<td>{{ p.game.per }}</td>{% endif %}
+          <td>{{ p.player.position }}</td>
+          <td>{{ p.player.team.abbrev }}</td>
+          <td>{{ p.game.matchup }}</td>
+          <td>{{ p.game.wl }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
 
 
     </table>
@@ -124,4 +125,21 @@
 
 
 <script src="{{ url_for('static',filename='js/datepicker.js') }}"></script>
+<script type="text/javascript">
+
+$(function() {
+
+  // var btns = $(".btn");
+  // btns.click(function() {
+  //   alert("hi");
+  // });
+
+
+  $("tbody > tr:even").css("background-color", "#F4F4F8");
+  $("tbody > tr:odd").css("background-color", "#EFF1F1");
+
+});
+
+</script>
+
 {% endblock %}
