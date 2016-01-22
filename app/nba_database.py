@@ -50,6 +50,14 @@ class NBADatabase:
         """
         return
 
+    def get_player_season_by_name(self, name, season):
+        """
+        Given a player name and season (format: "2015-16"), return the document
+        of the given season of the player with the given id.
+        A season contains a list of games.
+        """
+        return
+
 
 class NBAMongoDB(NBADatabase):
     """
@@ -75,6 +83,17 @@ class NBAMongoDB(NBADatabase):
         players_collection = self.__players_collection()
         player = players_collection.find({"_id": id})[0]
         return player
+        # TODO: Should return empty player if id is wrong.
+
+    def get_player_by_name(self, name):
+        players_collection = self.__players_collection()
+        players = players_collection.find()
+
+        for player in players:
+            if (player['first_name'] + " " + player['last_name']).lower() \
+                    == name.lower():
+                return player
+        return None
 
     def get_player_season_by_id(self, id, season):
         # TODO: change db name to "2015_16"
@@ -82,9 +101,20 @@ class NBAMongoDB(NBADatabase):
         season = season_collection.find({"_id": id})[0]
         return season
 
+    def get_player_season_by_name(self, name, season):
+        player = self.get_player_by_name(name)
+        id = player['_id']
+        return self.get_player_season_by_id(id, season)
+
     def __players_collection(self):
+        """
+        Return the entire players collection.
+        """
         return self.db[PLAYERS_COL]
 
     def __season_collection(self, season):
+        """
+        Given a season, return the entire season collection.
+        """
         season_col_name = "season" + season
         return self.db[season_col_name]

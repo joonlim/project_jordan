@@ -1,5 +1,6 @@
 from app.nba_database import NBAMongoDB
 import app.utils as utils
+from app.static.teams import teams
 
 HOST = "23.23.23.23"
 PORT = 27017
@@ -21,6 +22,17 @@ class NBADataManager:
         that id.
         """
         player = self.db.get_player_by_id(id)
+
+        # Format dict to be returned.
+        player_info = self.__parse_player_info(player)
+        return player_info
+
+    def get_player_by_name(self, name):
+        """
+        Given a player's full name, return a dict with information about the
+        player with that name (ignore case).
+        """
+        player = self.db.get_player_by_name(name)
 
         # Format dict to be returned.
         player_info = self.__parse_player_info(player)
@@ -50,10 +62,10 @@ class NBADataManager:
         player_season_info = self.__parse_player_season_info(player_season)
         return player_season_info
 
-    def get_player_games_on_date(self, date, season):
+    def get_all_player_games_on_date(self, date, season):
         """
         Given a list of player ids, a date (format: "YYYY-MM-DD"), and the
-        matching season, return alist of dicts with player game information
+        matching season, return a list of dicts with player game information
         for players who have played on the given date.
         """
         seasons = self.db.get_seasons(season)
@@ -77,6 +89,14 @@ class NBADataManager:
 
         return player_games_on_date_list
 
+    def get_team_by_abbrev(self, abbrev):
+        """
+        Given a team abbreviation (format: "GSW"), return a dict with static
+        team information, which includes the full name and colors.
+        """
+        abbrev_lower = abbrev.lower()
+        return teams[abbrev_lower]
+
     def __format_headshot_img_file_path(self, name):
         """
         Given a player's name (format: "Firstname Lastname"), return the path
@@ -84,6 +104,15 @@ class NBADataManager:
         """
         headshot_img_file = self.__format_img_alt(name) + ".png"
         headshot_img_path = "img/player_headshots/" + headshot_img_file
+        return headshot_img_path
+
+    def __format_team_logo_img_file_path(self, name):
+        """
+        Given a team's full name (format: "City Name"), return the path of the
+        team's logo image.
+        """
+        headshot_img_file = self.__format_img_alt(name) + ".png"
+        headshot_img_path = "img/team_logos/" + headshot_img_file
         return headshot_img_path
 
     def __format_img_alt(self, name):
@@ -95,7 +124,7 @@ class NBADataManager:
             .replace("'", "")
         return alt
 
-    def __parse_game_stats(self, player_info, game):
+    def __parse_game_stats(self, player_info, game_doc):
         """
         Given a player_info dict and game document, create a dict representing
         the player stats of the game to be returned to the client.
@@ -138,17 +167,17 @@ class NBADataManager:
         team = player_info["team"]["abbrev"]
         position = player_info['position']
 
-        home = game["home"]
-        away = game["away"]
+        home = game_doc["home"]
+        away = game_doc["away"]
         matchup = home + " vs. " + away if home == team\
             else home + " @ " + away
-        winner = game["winner"]
+        winner = game_doc["winner"]
         if winner == "Undecided":
             wl = "Ongoing"
         else:
             wl = "W" if home == winner else "L"
 
-        stats = game["statistics"]
+        stats = game_doc["statistics"]
 
         fgm = stats["fgm"]
         fga = stats["fga"]
@@ -191,11 +220,70 @@ class NBADataManager:
             "per": stats["linear_PER"]
         }
 
-    def __parse_player_season_info(self, player_season):
+    def __parse_player_season_info(self, player_season_doc):
         """
-        Given a player season document, create a dict representing player
-        season information to be returned to the client.
+        Given a player season document, create a dict representing information
+        information of the season.
+        create a dict representing
+
+        season_doc format:
+
+        document = {
+            "_id": Integer,
+            "last_updated": String,
+            "games": game_doc list,
+            "total": game_doc,
+            "average": game_doc
+        }
+
+        game_doc format:
+
+        {
+            "id": String,
+            "date": String,
+            "home": String,
+            "away": String,
+            "winner": String,
+            "statistics": {
+                "min": Integer,
+                "fgm": Integer,
+                "fga": Integer,
+                "fg_pct": Float,
+                "fg3m": Integer,
+                "fg3a": Integer,
+                "fg3_pct": Float,
+                "ftm": Integer,
+                "fta": Integer,
+                "ft_pct": Float,
+                "oreb": Integer,
+                "dreb": Integer,
+                "reb": Integer,
+                "ast": Integer,
+                "stl": Integer,
+                "blk": Integer,
+                "tov": Integer,
+                "pf": Integer,
+                "pts": Integer,
+                "plus_minus": Integer,
+                "linear_PER": Float
+            }
+        }
         """
+
+        games = list()
+        for game in player_season_doc['games']:
+            game_stats = self.__parse_game_stats(game)
+            games.append(game_stats)
+
+        total = self.__parse_game_stats(player_season_doc['total'])
+        average = self.__parse_game_stats(player_season_doc['average'])
+
+        return {
+            "_id": player_season_doc['_id'],
+            "games": games,
+            "total": total,
+            "average": average
+        }
 
     def __parse_player_info(self, player_doc):
         """

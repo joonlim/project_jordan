@@ -74,7 +74,7 @@ def daily():
 
     # Format date to YYYY-MM-DD
     formatted_date = date[6:] + "-" + date[:5]
-    games = dm.get_player_games_on_date(formatted_date, "2015-16")  # TODO: season name
+    games = dm.get_all_player_games_on_date(formatted_date, "2015-16")  # TODO: season name
 
     utils.sort_list_by_attribute(games, stat, stat2)
 
@@ -109,6 +109,116 @@ def daily():
                            games=games,
                            top_div=top_div)
 
+
+@app.route('/compare')
+@app.route('/compare.html')
+def compare():
+    """
+    Compare two players in a given date range.
+    """
+    website = wm.info()
+    navbar = wm.nav_bar_pages(COMPARE)
+    page = wm.new_page("Compare Players")
+
+    # Fake user for now
+    user = um.fake_user()
+
+    # Check if there is a start, end, player1, and player2
+    start = request.args.get('start')
+    end = request.args.get('end')
+    player1 = request.args.get('player1')
+    player2 = request.args.get('player2')
+
+    # Default date and stat. secondstat defaults to None.
+    if not utils.is_valid_date(start, "-"):
+        start = utils.days_before_today(2, "%m-%d-%Y")  # Two days before today
+    if not utils.is_valid_date(end, "-"):
+        end = utils.days_before_today(1, "%m-%d-%Y")  # Yesterday's date
+
+    # TODO LOGIC, by game or by week, etc
+
+    return render_template("compare.html",
+                           website=website,
+                           page=page,
+                           navbar=navbar,
+                           user=user,
+                           start=start,
+                           end=end,
+                           player1=player1,
+                           player2=player2)
+
+
+@app.route('/player')
+@app.route('/player.html')
+@app.route('/players')
+@app.route('/players.html')
+def player():
+    """
+    Display information on a specific player.
+    """
+    website = wm.info()
+    navbar = wm.nav_bar_pages()
+
+    # Fake user for now
+    user = um.fake_user()
+
+    # Check if there is a player name
+    name = request.args.get('name')
+
+    if name is not None:
+        name = name.replace('_', " ")
+        name = name.replace('+', " ")
+        player = dm.get_player_by_name(name)
+        team = dm.get_team_by_abbrev(player['team']['abbrev'])
+        page = wm.new_page(player['name'])
+    else:
+        player = None
+        team = None
+        page = wm.new_page("Players")
+
+    # TODO LOGIC, by game or by week, etc
+
+    return render_template("player.html",
+                           website=website,
+                           page=page,
+                           user=user,
+                           navbar=navbar,
+                           player=player,
+                           team=team)
+
+
+@app.route('/team')
+@app.route('/team.html')
+@app.route('/teams')
+@app.route('/teams.html')
+def team():
+    """
+    Display information on a specific team.
+    """
+    website = wm.info()
+    navbar = wm.nav_bar_pages()
+
+    # Fake user for now
+    user = um.fake_user()
+
+    # Check if there is a team name abbreviation
+    abbrev = request.args.get('name')
+
+    if abbrev is not None:
+        abbrev = abbrev.replace('_', " ")
+        abbrev = abbrev.replace('+', " ")
+        team = dm.get_team_by_abbrev(abbrev)
+        page = wm.new_page(team['city'] + " " + team['name'])
+    else:
+        team = None
+        page = wm.new_page("Teams")
+
+    return render_template("team.html",
+                           website=website,
+                           page=page,
+                           user=user,
+                           navbar=navbar,
+                           team=team)
 
 # @app.route('/season_stats')
 # @app.route('/season_stats.html')

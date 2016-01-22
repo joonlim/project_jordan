@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="">
+  <div class="container" id="sandbox-container">
+    <h2>Compare Players</h2>
+    <br>
+
+    <div class="col-md-12">
+      <div class="row">
+        <label style="font-size:16px; padding-top: 5px" class="col-xs-2 control-label">Player:</label>
+        <div class="col-xs-10 selectContainer">
+          <div class="combobox-container">
+            <input type="hidden" name="size" value="">
+              <div class="input-group" style="font-size:16px; max-width:342px">
+                <input style="font-size:16px;" type="text" autocomplete="off" placeholder="Choose a player" class="form-control">
+                  <ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px; display: none;">
+                    <li data-value="Small (S)" class="active">
+                      <a href="#"><strong></strong>S<strong></strong>m<strong></strong>a<strong></strong>l<strong></strong>l<strong></strong> <strong></strong>(<strong></strong>S<strong></strong>)<strong></strong></a></li><li data-value="Medium (M)"><a href="#"><strong></strong>M<strong></strong>e<strong></strong>d<strong></strong>i<strong></strong>u<strong></strong>m<strong></strong> <strong></strong>(<strong></strong>M<strong></strong>)<strong></strong></a></li><li data-value="Large (L)"><a href="#"><strong></strong>L<strong></strong>a<strong></strong>r<strong></strong>g<strong></strong>e<strong></strong> <strong></strong>(<strong></strong>L<strong></strong>)<strong></strong></a></li><li data-value="Extra large (XL)"><a href="#"><strong></strong>E<strong></strong>x<strong></strong>t<strong></strong>r<strong></strong>a<strong></strong> <strong></strong>l<strong></strong>a<strong></strong>r<strong></strong>g<strong></strong>e<strong></strong> <strong></strong>(<strong></strong>X<strong></strong>L<strong></strong>)<strong></strong></a></li></ul> <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown"> <span class="caret"></span> <span class="glyphicon glyphicon-remove"></span> </span>
+                </div>
+              </div>
+            <select class="form-control" data-fv-field="size" style="display: none;">
+                <option value="">Choose a size</option>
+                <option value="s">Small (S)</option>
+                <option value="m">Medium (M)</option>
+                <option value="l">Large (L)</option>
+                <option value="xl">Extra large (XL)</option>
+            </select>
+
+            <i class="form-control-feedback" data-fv-icon-for="size" style="display: none;"></i>
+          <small class="help-block" data-fv-validator="notEmpty" data-fv-for="size" data-fv-result="NOT_VALIDATED" style="display: none;">The size is required</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <label style="font-size:16px; padding-top: 5px" class="col-xs-2 control-label">Date Range:</label>
+        <div class="col-xs-10">
+          <div style="float:left; padding-top: 2px;" class="input-daterange input-group" id="datepicker">
+            <input style="font-size:16px; max-width:160px" class="input-sm form-control" name="start" type="text">
+            <span class="input-group-addon">to</span>
+            <input style="font-size:16px; max-width:160px;" class="input-sm form-control" name="end" type="text">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+         
+        <div style="float:left; padding-left:1em; padding-top: 0px">
+          <input class="form-control" type="submit" value="Reload">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <input type="hidden" name="stat" value="{{ stat }}">
+  <input type="hidden" name="player1" value="{{ player1 }}">
+  <input type="hidden" name="player2" value="{{ player2 }}">
+</form>
+
+<hr>
+
+<script src="{{ url_for('static',filename='js/datepicker.js') }}"></script>
+{% endblock %}

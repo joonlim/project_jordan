@@ -1,5 +1,7 @@
 
 
+
+
 http://jinja.pocoo.org/docs/dev/templates/#builtin-filters
 
 
@@ -116,6 +118,11 @@ Using a set of given ordered coordinates, calculate an estimated function, then 
 TODO: parse epithets
 
 TODO: banner should only load one image
+
+TODO: Using a set of given ordered coordinates, calculate an estimated function, then calculate the derivative function of that. Use the derivative function to calculate the derivative value at today's date. This is the player's "hot" value.
+
+
+
 
 
 sorted lists for stats

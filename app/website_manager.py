@@ -1,4 +1,4 @@
-from app.banners import banners
+from app.static.banners import banners
 from random import shuffle
 from flask import Markup
 

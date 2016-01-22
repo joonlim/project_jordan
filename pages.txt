@@ -1,0 +1,46 @@
+home.html
+
+- set to team
+or
+- set to watchlist
+
+	- player news
+	- player quick info
+
+--------------------------------------------------------------------------------
+season.html
+
+- show values:
+
+	- view players ranked by season average.
+	or
+	- view players ranked by season totals.
+
+	- filter by position,
+	- sort by clicking a category at the top of the table.
+
+
+--------------------------------------------------------------------------------
+daily.html
+
+	- filter by position
+
+--------------------------------------------------------------------------------
+compare.html
+
+- compare multiple players:
+	- graph
+	- table
+
+--------------------------------------------------------------------------------
+info.html, through search
+
+- view info on any player
+or
+- view info on any team
+
+	- graph
+	- table
+	- who is on team, best players
+
+--------------------------------------------------------------------------------

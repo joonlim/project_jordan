@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <meta id="primary-color" data="{{ team.color.primary }}">
+  <meta id="secondary-color" data="{{ team.color.secondary }}">
+  <meta id="primary-font-color" data="{{ team.color.primary_font }}">
+  <meta id="secondary-font-color" data="{{ team.color.secondary_font }}">
+
+  <div id="bottom-container" class="container">
+
+  {% if player %}
+    <div id="home-column">
+      <div style="margin: 16px; padding: 30px; height: 215px; width: 400px;  background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
+        <img  id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
+      </div>
+      <div class="col-md-7">
+        <div class="row" style="padding: 16px">
+          <h1 id="name-header"><b>{{ player.name }}</b></h1>
+          <hr>
+          <thead>
+            <tr>
+              <th id="name-th">NAME</th>
+               {{ team.color.primary }}
+            </tr>
+          </thead>
+
+
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquam elit a magna egestas, quis porttitor nisl dapibus. </p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  </div>
+  <!-- end grid -->
+
+<script type="text/javascript">
+
+$(function() {
+
+  // var btns = $(".btn");
+  // btns.click(function() {
+  //   alert("hi");
+  // });
+
+  var primary_color = $('meta#primary-color').attr("data");
+  var secondary_color = $('meta#secondary-color').attr("data");
+  var primary_font_color = $('#primary-font-color').attr("data");
+  var secondary_font_color = $('#secondary-font-color').attr("data");
+
+  var body = $("body");
+  body.css({
+    "background-color": primary_color
+  });
+
+  var bottom_container = $("#bottom-container");
+  bottom_container.css({
+    "background-color": secondary_color,
+    "border-style": "solid",
+    "border-width": "6px",
+    "border-color": secondary_font_color
+  });
+
+  var name_header = $("#name-header");
+  name_header.css({
+    "color": secondary_font_color
+  });
+
+  var hr = $("hr");
+  hr.css({
+    "border-color": primary_color
+  });
+
+});
+
+</script>
+
+{% endblock %}
