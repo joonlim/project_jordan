@@ -117,10 +117,6 @@ class NBADataManager:
         # Create min heaps of size 20 for each stat
         all_player_seasons = list(self.db.get_seasons(season))
 
-        log = open("logs.txt", "a")
-        log.write(str(all_player_seasons) + "\n")
-        log.close()
-
         return self.__create_trophies_for_player(all_player_seasons, int(player_id), field)
 
     def __format_headshot_img_file_path(self, name):

@@ -1,4 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald);
+   
 
+.shadow {
+  -moz-box-shadow: 0 0 30px 5px #999;
+  -webkit-box-shadow: 0 0 30px 5px #999;
+}
+
+.heading-font {
+  font-family: "Oswald";
+}
 
 #bottom-container {
 	padding-bottom: 64px;

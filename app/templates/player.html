@@ -15,7 +15,7 @@
   <meta id="secondary-font-color" data="#F4F4F8">
   {% endif %}
 
-  <div id="bottom-container" class="container">
+  <div id="bottom-container" class="container shadow">
 
   {% if player %}
     <div class="row">
@@ -26,10 +26,10 @@
       </div>
       <div class="col-md-7">
         <div class="row" style="padding: 4px">
-          <h1 style="padding-left: 14px; padding-right: 14px"class="container-text"><b>{{ player.name }}</b></h1>
+          <h1 style="padding-left: 14px; padding-right: 14px; font-size: 40px;" class="container-text heading-font"><b>{{ player.name }}</b></h1>
           <hr>
           <div class="col-md-6">
-            <div class="info-card">
+            <div class="info-card shadow">
               <div class="row">
                 <div class="col-md-6">
                   <span style="font-size:16px;"><b>Position:</b></span>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="info-card">
+            <div class="info-card shadow">
               <div class="row">
                 <div class="col-md-6">
                   <span style="font-size:16px;"><b>Birthdate:</b></span>
@@ -110,7 +110,7 @@
       </div>
 
       <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
-        <h4 id="average-label" class="container-text"><b>Average &#x25B2;</b></h4>
+        <h4 id="average-label" class="container-text"><b>Average  &#x25B2;</b></h4>
         <table class='table'>
           <thead>
             <tr>
@@ -173,7 +173,7 @@
       </div>
 
       <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
-        <h4 id="total-label" class="container-text"><b>Total &#x25B2;</b></h4>
+        <h4 id="total-label" class="container-text"><b>Total  &#x25B2;</b></h4>
         <table class='table'>
           <thead>
             <tr>
@@ -376,11 +376,11 @@ $(function() {
       $.ajax({url: "/average.html?id=" + player_id, success: function(result){
           average_trophies.html(result);
       }});
-      average_label.html("<b>Average &#x25BC;</b>");
+      average_label.html("<b>Average  &#x25BC;</b>");
       average_label_clicks++;
     } else {
       average_trophies.children().remove();
-      average_label.html("<b>Average &#x25B2;</b>");
+      average_label.html("<b>Average  &#x25B2;</b>");
       average_label_clicks--;
     }
   });
@@ -393,11 +393,11 @@ $(function() {
       $.ajax({url: "/total.html?id=" + player_id, success: function(result){
           total_trophies.html(result);
       }});
-      total_label.html("<b>Total &#x25BC;</b>");
+      total_label.html("<b>Total  &#x25BC;</b>");
       total_label_clicks++;
     } else {
       total_trophies.children().remove();
-      total_label.html("<b>Total &#x25B2;</b>");
+      total_label.html("<b>Total  &#x25B2;</b>");
       total_label_clicks--;
     }
   });
