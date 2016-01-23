@@ -1,6 +1,7 @@
 from app.nba_database import NBAMongoDB
 import app.utils as utils
 from app.static.teams import teams
+from heapq import nlargest
 
 HOST = "23.23.23.23"
 PORT = 27017
@@ -101,6 +102,27 @@ class NBADataManager:
         abbrev_lower = abbrev.lower()
         return teams[abbrev_lower]
 
+    def get_trophies_by_id(self, player_id, field, season):
+        """
+        Given a player id and a field ("average" or "total"), determine the
+        trophies/awards the player receives and return a list of them.
+        Awards can be received in every category:
+        1 = Best
+        2 = Second Best
+        3 = Third Best
+        5 = Top 5
+        10 = Top 10
+        20 = Top 20
+        """
+        # Create min heaps of size 20 for each stat
+        all_player_seasons = list(self.db.get_seasons(season))
+
+        log = open("logs.txt", "a")
+        log.write(str(all_player_seasons) + "\n")
+        log.close()
+
+        return self.__create_trophies_for_player(all_player_seasons, int(player_id), field)
+
     def __format_headshot_img_file_path(self, name):
         """
         Given a player's name (format: "Firstname Lastname"), return the path
@@ -162,7 +184,7 @@ class NBADataManager:
                 "pf": Integer,
                 "pts": Integer,
                 "plus_minus": Integer,
-                "linear_PER": Float
+                "per": Float
             }
         }
         """
@@ -221,7 +243,7 @@ class NBADataManager:
             "pf": stats["pf"],
             "pts": stats["pts"],
             "plus_minus": stats["plus_minus"],
-            "per": stats["linear_PER"]
+            "per": stats["per"]
         }
 
     def __parse_player_season_info(self, player_season_doc):
@@ -269,7 +291,7 @@ class NBADataManager:
                 "pf": Integer,
                 "pts": Integer,
                 "plus_minus": Integer,
-                "linear_PER": Float
+                "per": Float
             }
         }
         """
@@ -321,7 +343,7 @@ class NBADataManager:
         """
 
         name = player_doc['first_name'] + " " + player_doc['last_name']
-        link = name.replace(' ', '_')
+        link = "player?name=" + name.replace(' ', '_')
         headshot_img_path = self.__format_headshot_img_file_path(name)
         headshot_img_alt = self.__format_img_alt(name)
 
@@ -345,5 +367,70 @@ class NBADataManager:
             "to_year": player_doc['to_year'],
         }
 
+    def __create_trophies_for_player(self, player_season_doc_list, player_id, field):
+        """
+        Create a trophy for each category if the player is within the rank.
+        Return a list of trophies in order of rank.
+        """
+        # Create a dict of heaps for each ranked stat.
+        heap_dict = {
+            "fg_pct": list(),
+            "fg3m": list(),
+            "ft_pct": list(),
+            "reb": list(),
+            "ast": list(),
+            "stl": list(),
+            "blk": list(),
+            "tov": list(),
+            "pts": list(),
+            "plus_minus": list(),
+            "per": list()
+        }
+        trophies = list()
+        for key in heap_dict:
+            heap_dict[key] = nlargest(20, player_season_doc_list, key=lambda x: x[field][key])
+            i = 1
+            for doc in heap_dict[key]:
+                if doc['_id'] == player_id:
+                    if i == 1:
+                        trophies.append({
+                            "stat": key,
+                            "value": 1
+                        })
+                        break
+                    elif i == 2:
+                        trophies.append({
+                            "stat": key,
+                            "value": 2
+                        })
+                        break
+                    elif i == 3:
+                        trophies.append({
+                            "stat": key,
+                            "value": 3
+                        })
+                        break
+                    elif i <= 5:
+                        trophies.append({
+                            "stat": key,
+                            "value": 5
+                        })
+                        break
+                    elif i <= 10:
+                        trophies.append({
+                            "stat": key,
+                            "value": 10
+                        })
+                        break
+                    else:
+                        trophies.append({
+                            "stat": key,
+                            "value": 20
+                        })
+                        break
+                i += 1
+        # Return a list sorted in order of how good the trophy is: 1, 2, 3, 5, 10, 20.
+        utils.sort_list_by_attribute(trophies, "value", "stat", False)
+        return trophies
 
 data_manager = NBADataManager()

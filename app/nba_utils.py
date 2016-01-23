@@ -3,12 +3,12 @@ Utility functions related to NBA data.
 """
 
 
-def format_category(stat):
+def format_stat_map():
     """
-    Format a category string displayed on the client.
+    Return a dict to be used by the client that maps formats a stat.
     """
     format_dict = {
-        "min": "PTS",
+        "min": "MIN",
         "fgm": "FGM",
         "fga": "FGA",
         "fg_pct": "FG%",
@@ -30,7 +30,14 @@ def format_category(stat):
         "plus_minus": "+/-",
         "per": "PER"
     }
-    return format_dict[stat]
+    return format_dict
+
+
+def format_category(stat):
+    """
+    Format a category string displayed on the client.
+    """
+    return format_stat_map()[stat]
 
 
 def parse_stat(stat, default):
@@ -117,7 +124,7 @@ def parse_stat(stat, default):
         "p/m": "plus_minus",
         "plusminus": "plus_minus",
 
-        "linear_per": "per",
+        "per": "per",
         "linearper": "per",
         "lper": "per",
         "l_per": "per",

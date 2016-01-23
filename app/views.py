@@ -17,6 +17,36 @@ COMPARE = 2
 CURRENT_SEASON = "2015-16"
 
 
+@app.route('/average')
+@app.route('/average.html')
+def average():
+    """
+    AJAX call to get player trophies for average stats.
+    """
+    player_id = request.args.get('id')
+    trophies = dm.get_trophies_by_id(player_id, "average", CURRENT_SEASON)
+    statmap = nba.format_stat_map()
+    return render_template("average.html",
+                           id=id,
+                           trophies=trophies,
+                           statmap=statmap)
+
+
+@app.route('/total')
+@app.route('/total.html')
+def total():
+    """
+    AJAX call to get player trophies for total stats.
+    """
+    player_id = request.args.get('id')
+    trophies = dm.get_trophies_by_id(player_id, "total", CURRENT_SEASON)
+    statmap = nba.format_stat_map()
+    return render_template("total.html",
+                           id=id,
+                           trophies=trophies,
+                           statmap=statmap)
+
+
 @app.route('/')
 @app.route('/index')
 @app.route('/index.html')
@@ -299,7 +329,7 @@ def team():
 #         "pf": "PF",
 #         "pts": "PTS",
 #         "plus_minus": "+/-",
-#         "linear_PER": "PER"
+#         "per": "PER"
 #     }
 
 #     return render_template("game_stats.html",

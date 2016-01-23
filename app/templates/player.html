@@ -7,6 +7,7 @@
   <meta id="secondary-color" data="{{ team.color.secondary }}">
   <meta id="primary-font-color" data="{{ team.color.primary_font }}">
   <meta id="secondary-font-color" data="{{ team.color.secondary_font }}">
+  <meta id="player-id" data="{{ player._id }}">
   {% else %}
   <meta id="primary-color" data="#F4F4F8">
   <meta id="secondary-color" data="#F4F4F8">
@@ -19,46 +20,46 @@
   {% if player %}
     <div class="row">
       <div style="padding:15px">
-        <div style="margin: 16px; padding: 30px; height: 215px; width: 400px;  background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
+        <div style="margin: 16px; padding: 30px; height: 215px; width: 400px; background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
           <img id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
         </div>
       </div>
       <div class="col-md-7">
         <div class="row" style="padding: 4px">
-          <h1 class="container-text"><b>{{ player.name }}</b></h1>
+          <h1 style="padding-left: 14px; padding-right: 14px"class="container-text"><b>{{ player.name }}</b></h1>
           <hr>
           <div class="col-md-6">
             <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Position:</span>
+                  <span style="font-size:16px;"><b>Position:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.position }}</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <span style="font-size:16px;">Jersey:</span>
-                </div>
-                <div class="col-md-6">
-                  <span style="font-size:16px;">#{{ player.jersey }}</span>
+                  <span style="font-size:16px;"><b>{{ player.position }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Height:</span>
+                  <span style="font-size:16px;"><b>Jersey:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.height.replace("-", "' ") + "\"" }}</span>
+                  <span style="font-size:16px;"><b>#{{ player.jersey }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Weight:</span>
+                  <span style="font-size:16px;"><b>Height:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.weight }} lbs</span>
+                  <span style="font-size:16px;"><b>{{ player.height.replace("-", "' ") + "\"" }}</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;"><b>Weight:</b></span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;"><b>{{ player.weight }} lbs</b></span>
                 </div>
               </div>
             </div>
@@ -67,34 +68,34 @@
             <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Birthdate:</span>
+                  <span style="font-size:16px;"><b>Birthdate:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.birthdate[5:].replace('-', '/') + "/" + player.birthdate[:4] }}</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <span style="font-size:16px;">School:</span>
-                </div>
-                <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.school }}</span>
+                  <span style="font-size:16px;"><b>{{ player.birthdate[5:].replace('-', '/') + "/" + player.birthdate[:4] }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Country:</span>
+                  <span style="font-size:16px;"><b>School:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.country }}</span>
+                  <span style="font-size:16px;"><b>{{ player.school }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;">Years Active:</span>
+                  <span style="font-size:16px;"><b>Country:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;">{{ player.to_year - player.from_year }}</span>
+                  <span style="font-size:16px;"><b>{{ player.country }}</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:16px;"><b>Years Active:</b></span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:16px;"><b>{{ player.to_year - player.from_year }}</b></span>
                 </div>
               </div>
             </div>
@@ -103,8 +104,13 @@
       </div>
     </div>
     <div class="row">
+
+      <div id="average-trophies" class="container">
+
+      </div>
+
       <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
-        <h4 class="container-text"><b>Average</b></h4>
+        <h4 id="average-label" class="container-text"><b>Average &#x25B2;</b></h4>
         <table class='table'>
           <thead>
             <tr>
@@ -161,8 +167,13 @@
     </div>
 
     <div class="row">
+
+      <div id="total-trophies" class="container">
+
+      </div>
+
       <div style="padding-left: 16px; padding-right: 16px" class="table-responsive">
-        <h4 class="container-text"><b>Total</b></h4>
+        <h4 id="total-label" class="container-text"><b>Total &#x25B2;</b></h4>
         <table class='table'>
           <thead>
             <tr>
@@ -353,6 +364,43 @@ $(function() {
 
   $("tbody > tr:even").css("background-color", "#F4F4F8");
   $("tbody > tr:odd").css("background-color", "#EFF1F1");
+
+  // AJAX
+  var player_id = $('meta#player-id').attr("data");
+
+  var average_label_clicks = 0;
+  var average_label = $("#average-label");
+  var average_trophies = $("#average-trophies");
+  average_label.click(function(){
+    if (average_label_clicks == 0) {
+      $.ajax({url: "/average.html?id=" + player_id, success: function(result){
+          average_trophies.html(result);
+      }});
+      average_label.html("<b>Average &#x25BC;</b>");
+      average_label_clicks++;
+    } else {
+      average_trophies.children().remove();
+      average_label.html("<b>Average &#x25B2;</b>");
+      average_label_clicks--;
+    }
+  });
+
+  var total_label_clicks = 0;
+  var total_label = $("#total-label");
+  var total_trophies = $("#total-trophies");
+  total_label.click(function(){
+    if (total_label_clicks == 0) {
+      $.ajax({url: "/total.html?id=" + player_id, success: function(result){
+          total_trophies.html(result);
+      }});
+      total_label.html("<b>Total &#x25BC;</b>");
+      total_label_clicks++;
+    } else {
+      total_trophies.children().remove();
+      total_label.html("<b>Total &#x25B2;</b>");
+      total_label_clicks--;
+    }
+  });
 
 });
 

@@ -1,0 +1,12 @@
+<!-- Top 20, 10, 5, 1, 2, 3 -->
+{% if trophies|length > 0 %}
+<div style="padding-top: 30px;" class="container-text">
+  {% for trophy in trophies %}
+  <div style="display:inline-block; margin-right:15px;" >
+    <p style="text-align:center"><b>{% if trophy.value < 5 %}Place{% else %}Top{% endif %}</b></p>
+    <img src="../static/img/trophies/{% if trophy.value < 5 %}trophy-{{ trophy.value }}{% else %}award-{{ trophy.value }}{% endif %}.png" height="100" width="80" />
+    <p style="text-align:center"><b>{{ statmap[trophy.stat] }}</b></p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
