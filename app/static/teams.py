@@ -45,9 +45,9 @@ teams = {
         "division": "Atlantic",
         "color": {
             "primary": "#061922",
-            "secondary": "#061922",
+            "secondary": "#FFFFFF",
             "primary_font": "#FFFFFF",
-            "secondary_font": "#FFFFFF"
+            "secondary_font": "#061922"
         },
         "logo_img": {
             "path": "img/team_logos/brooklyn_nets.png",
@@ -114,7 +114,7 @@ teams = {
         "color": {
             "primary": "#860038",
             "secondary": "#FDBB30",
-            "primary_font": "#000000",
+            "primary_font": "#FFFFFF",
             "secondary_font": "#002D62"
         },
         "logo_img": {
@@ -521,7 +521,7 @@ teams = {
         "division": "Southeast",
         "color": {
             "primary": "#DF1936",
-            "secondary": "##002B5C",
+            "secondary": "#002B5C",
             "primary_font": "#FFFFFF",
             "secondary_font": "#FFFFFF"
         },

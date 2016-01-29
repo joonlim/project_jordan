@@ -20,16 +20,21 @@
   {% if player %}
     <div class="row">
       <div style="padding:15px">
+
+      <!-- TODO: Fix background color to white -->
+      <!-- FIX WASHINGTON COLORS -->
+
         <div style="margin: 16px; padding: 30px; height: 215px; width: 400px; background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
           <img id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
         </div>
+
       </div>
       <div class="col-md-7">
         <div class="row" style="padding: 4px">
           <h1 style="padding-left: 14px; padding-right: 14px; font-size: 40px;" class="container-text heading-font"><b>{{ player.name }}</b></h1>
           <hr>
           <div class="col-md-6">
-            <div class="info-card shadow">
+            <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
                   <span style="font-size:16px;"><b>Position:</b></span>
@@ -65,7 +70,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <div class="info-card shadow">
+            <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
                   <span style="font-size:16px;"><b>Birthdate:</b></span>
@@ -317,44 +322,44 @@ $(function() {
 
   var body = $("body");
   body.css({
-    "background-color": primary_color
+    "background-color": "#F4F4F8"
   });
 
   var bottom_container = $("#bottom-container");
   bottom_container.css({
-    "background-color": secondary_color,
+    "background-color": primary_color,
     "border-style": "solid",
     "border-width": "6px",
-    "border-color": secondary_font_color
+    "border-color": primary_font_color
   });
 
   var container_text = $(".container-text");
   container_text.css({
-    "color": secondary_font_color
+    "color": primary_font_color
   });
 
   var info_card = $(".info-card");
   info_card.css({
-    "background-color": secondary_font_color,
+    "background-color": secondary_color,
     "padding": "8px",
     "border": "1px solid " + primary_font_color,
-    "color": secondary_color
+    "color": secondary_font_color
   });
 
   var hr = $("hr");
   hr.css({
-    "border-color": primary_color
+    "border-color": secondary_color
   });
 
   var table = $("table");
   table.css({
-    "border": "1px solid " + primary_color
+    "border": "1px solid " + secondary_color
   });
 
   var thead = $("thead");
   thead.css({
-    "color": primary_font_color,
-    "background-color": primary_color
+    "color": secondary_font_color,
+    "background-color": secondary_color
   });
 
   var tbody = $("tbody");
