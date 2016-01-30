@@ -155,7 +155,6 @@ def compare():
     """
     website = wm.info()
     navbar = wm.nav_bar_pages(COMPARE)
-    page = wm.new_page("Compare Players")
 
     # Fake user for now
     user = um.fake_user()
@@ -165,6 +164,52 @@ def compare():
     end = request.args.get('end')
     player1 = request.args.get('player1')
     player2 = request.args.get('player2')
+    stat = request.args.get('stat')
+    stat = nba.parse_stat(stat, "per")   # If stat is incorrect form or empty, it defaults to per.
+
+    page_title = "Current Season"
+
+    if player1 is not None:
+        player1 = player1.replace('_', " ")
+        player1 = player1.replace('+', " ")
+        player1_info = dm.get_player_by_name(player1)
+        if player1_info is not None:
+            player1_team = dm.get_team_by_abbrev(player1_info['team']['abbrev'])
+            page_title = player1_info['name']
+            player1_season = dm.get_player_season_by_id(player1_info['_id'], CURRENT_SEASON)
+            player1 = {
+                "info": player1_info,
+                "team": player1_team,
+                "season": player1_season
+            }
+        else:
+            player1 = None
+    else:
+        player1 = None
+
+    if player2 is not None:
+        player2 = player2.replace('_', " ")
+        player2 = player2.replace('+', " ")
+        player2_info = dm.get_player_by_name(player2)
+        if player2_info is not None:
+            player2_team = dm.get_team_by_abbrev(player2_info['team']['abbrev'])
+            page = wm.new_page(player2_info['name'])
+            if page_title == "Current Season":
+                page_title = player2_info['name']
+            else:
+                page_title = page_title + " vs. " + player2_info['name']
+            player2_season = dm.get_player_season_by_id(player2_info['_id'], CURRENT_SEASON)
+            player2 = {
+                "info": player2_info,
+                "team": player2_team,
+                "season": player2_season
+            }
+        else:
+            player2 = None
+    else:
+        player2 = None
+
+    page = wm.new_page(page_title)
 
     # Default date and stat. secondstat defaults to None.
     if not utils.is_valid_date(start, "-"):
@@ -182,7 +227,8 @@ def compare():
                            start=start,
                            end=end,
                            player1=player1,
-                           player2=player2)
+                           player2=player2,
+                           stat=stat)
 
 
 @app.route('/player')

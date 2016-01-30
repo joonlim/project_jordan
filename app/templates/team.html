@@ -7,7 +7,7 @@
   <meta id="primary-font-color" data="{{ team.color.primary_font }}">
   <meta id="secondary-font-color" data="{{ team.color.secondary_font }}">
 
-  <div id="bottom-container" class="container">
+  <div class="container bottom-container">
 
   {% if team %}
     <div>
@@ -46,7 +46,7 @@ $(function() {
     "background-color": primary_color
   });
 
-  var bottom_container = $("#bottom-container");
+  var bottom_container = $(".bottom-container");
   bottom_container.css({
     "background-color": secondary_color,
     "border-style": "solid",

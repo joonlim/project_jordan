@@ -15,18 +15,16 @@
   <meta id="secondary-font-color" data="#F4F4F8">
   {% endif %}
 
-  <div id="bottom-container" class="container shadow">
+  <div class="container shadow bottom-container">
 
   {% if player %}
     <div class="row">
       <div style="padding:15px">
 
       <!-- TODO: Fix background color to white -->
-      <!-- FIX WASHINGTON COLORS -->
-
-        <div style="margin: 16px; padding: 30px; height: 215px; width: 400px; background-image: url({{ url_for('static', filename=team.logo_img.path )}});"class="col-md-5">
-          <img id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
-        </div>
+      <div style="margin: 16px; padding: 30px; height: 215px; width: 400px; background-color: {{ team.color.secondary }}; background-image: url({{ url_for('static', filename=team.logo_img.path )}}); border: 1px solid {{ team.color.primary_font }}" class="col-md-5">
+        <img id="player-headshot-img" src="{{ url_for('static', filename=player.headshot_img.path )}}" alt="{{ player.headshot_img.alt }}" ></img>
+      </div>
 
       </div>
       <div class="col-md-7">
@@ -37,34 +35,34 @@
             <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Position:</b></span>
+                  <span style="font-size:14px;"><b>Position:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.position }}</b></span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Jersey:</b></span>
-                </div>
-                <div class="col-md-6">
-                  <span style="font-size:16px;"><b>#{{ player.jersey }}</b></span>
+                  <span style="font-size:14px;"><b>{{ player.position }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Height:</b></span>
+                  <span style="font-size:14px;"><b>Jersey:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.height.replace("-", "' ") + "\"" }}</b></span>
+                  <span style="font-size:14px;"><b>#{{ player.jersey }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Weight:</b></span>
+                  <span style="font-size:14px;"><b>Height:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.weight }} lbs</b></span>
+                  <span style="font-size:14px;"><b>{{ player.height.replace("-", "' ") + "\"" }}</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:14px;"><b>Weight:</b></span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:14px;"><b>{{ player.weight }} lbs</b></span>
                 </div>
               </div>
             </div>
@@ -73,34 +71,34 @@
             <div class="info-card">
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Birthdate:</b></span>
+                  <span style="font-size:14px;"><b>Birthdate:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.birthdate[5:].replace('-', '/') + "/" + player.birthdate[:4] }}</b></span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <span style="font-size:16px;"><b>School:</b></span>
-                </div>
-                <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.school }}</b></span>
+                  <span style="font-size:14px;"><b>{{ player.birthdate[5:].replace('-', '/') + "/" + player.birthdate[:4] }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Country:</b></span>
+                  <span style="font-size:14px;"><b>School:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.country }}</b></span>
+                  <span style="font-size:14px;"><b>{{ player.school }}</b></span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>Years Active:</b></span>
+                  <span style="font-size:14px;"><b>Country:</b></span>
                 </div>
                 <div class="col-md-6">
-                  <span style="font-size:16px;"><b>{{ player.to_year - player.from_year }}</b></span>
+                  <span style="font-size:14px;"><b>{{ player.country }}</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span style="font-size:14px;"><b>Years Active:</b></span>
+                </div>
+                <div class="col-md-6">
+                  <span style="font-size:14px;"><b>{{ player.to_year - player.from_year }}</b></span>
                 </div>
               </div>
             </div>
@@ -325,7 +323,7 @@ $(function() {
     "background-color": "#F4F4F8"
   });
 
-  var bottom_container = $("#bottom-container");
+  var bottom_container = $(".bottom-container");
   bottom_container.css({
     "background-color": primary_color,
     "border-style": "solid",

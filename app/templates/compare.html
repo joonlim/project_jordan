@@ -2,52 +2,84 @@
 
 {% block content %}
 
+
+<script>
+    var player1 = {{ player1|tojson }};
+    var player2 = {{ player2|tojson }};
+    var stat = "{{ stat }}";
+</script>
+
 <form action="">
   <div class="container" id="sandbox-container">
     <h2>Compare Players</h2>
     <br>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="row">
-        <label style="font-size:16px; padding-top: 5px" class="col-xs-2 control-label">Player:</label>
-        <div class="col-xs-10 selectContainer">
-          <div class="combobox-container">
-            <input type="hidden" name="size" value="">
-              <div class="input-group" style="font-size:16px; max-width:342px">
-                <input style="font-size:16px;" type="text" autocomplete="off" placeholder="Choose a player" class="form-control">
-                  <ul class="typeahead typeahead-long dropdown-menu" style="top: 34px; left: 0px; display: none;">
-                    <li data-value="Small (S)" class="active">
-                      <a href="#"><strong></strong>S<strong></strong>m<strong></strong>a<strong></strong>l<strong></strong>l<strong></strong> <strong></strong>(<strong></strong>S<strong></strong>)<strong></strong></a></li><li data-value="Medium (M)"><a href="#"><strong></strong>M<strong></strong>e<strong></strong>d<strong></strong>i<strong></strong>u<strong></strong>m<strong></strong> <strong></strong>(<strong></strong>M<strong></strong>)<strong></strong></a></li><li data-value="Large (L)"><a href="#"><strong></strong>L<strong></strong>a<strong></strong>r<strong></strong>g<strong></strong>e<strong></strong> <strong></strong>(<strong></strong>L<strong></strong>)<strong></strong></a></li><li data-value="Extra large (XL)"><a href="#"><strong></strong>E<strong></strong>x<strong></strong>t<strong></strong>r<strong></strong>a<strong></strong> <strong></strong>l<strong></strong>a<strong></strong>r<strong></strong>g<strong></strong>e<strong></strong> <strong></strong>(<strong></strong>X<strong></strong>L<strong></strong>)<strong></strong></a></li></ul> <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown"> <span class="caret"></span> <span class="glyphicon glyphicon-remove"></span> </span>
-                </div>
-              </div>
-            <select class="form-control" data-fv-field="size" style="display: none;">
-                <option value="">Choose a size</option>
-                <option value="s">Small (S)</option>
-                <option value="m">Medium (M)</option>
-                <option value="l">Large (L)</option>
-                <option value="xl">Extra large (XL)</option>
-            </select>
-
-            <i class="form-control-feedback" data-fv-icon-for="size" style="display: none;"></i>
-          <small class="help-block" data-fv-validator="notEmpty" data-fv-for="size" data-fv-result="NOT_VALIDATED" style="display: none;">The size is required</small>
+        <div class="col-xs-10" style="font-size:16px; padding-top: 5px">
+            <div class="input-group">
+              <input type="text" class="form-control" name="player1" placeholder="Choose a player" {% if player2 %}value="{{ player1.info.name }}"{% endif %}>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Select <span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+            </div><!-- /input-group -->
         </div>
       </div>
 
       <div class="row">
-        <label style="font-size:16px; padding-top: 5px" class="col-xs-2 control-label">Date Range:</label>
-        <div class="col-xs-10">
-          <div style="float:left; padding-top: 2px;" class="input-daterange input-group" id="datepicker">
-            <input style="font-size:16px; max-width:160px" class="input-sm form-control" name="start" type="text">
-            <span class="input-group-addon">to</span>
-            <input style="font-size:16px; max-width:160px;" class="input-sm form-control" name="end" type="text">
-          </div>
+        <div class="col-xs-10" style="font-size:16px; padding-top: 5px">
+            <div class="input-group">
+              <input type="text" class="form-control" name="player2" placeholder="Choose a player" {% if player2 %}value="{{ player2.info.name }}"{% endif %}>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Select <span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#">Separated link</a></li>
+
+                </ul>
+              </div><!-- /btn-group -->
+            </div><!-- /input-group -->
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-xs-10" style="font-size:16px; padding-top: 5px">
+            <div class="input-group">
+              <input id="stat-text" type="text" class="form-control" placeholder="Choose a category" >
+              <div class="input-group-btn">
+                <button type="button" class="stat-button btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Select <span class="caret"></span></button>
+                <ul class="dropdown-menu scrollable-menu" role="menu">
+                  <li><a class="stat-choice" href="#">FG%</a></li>
+                  <li><a class="stat-choice" href="#">3PM</a></li>
+                  <li><a class="stat-choice" href="#">FT%</a></li>
+                  <li><a class="stat-choice" href="#">REB</a></li>
+                  <li><a class="stat-choice" href="#">AST</a></li>
+                  <li><a class="stat-choice" href="#">STL</a></li>
+                  <li><a class="stat-choice" href="#">BLK</a></li>
+                  <li><a class="stat-choice" href="#">TOV</a></li>
+                  <li><a class="stat-choice" href="#">PTS</a></li>
+                  <li><a class="stat-choice" href="#">+/-</a></li>
+                  <li><a class="stat-choice" href="#">PER</a></li>
+
+                </ul>
+              </div><!-- /btn-group -->
+            </div><!-- /input-group -->
+        </div>
+      </div>
+
 
 
       <div class="row">
          
-        <div style="float:left; padding-left:1em; padding-top: 0px">
+        <div style="float:left; padding-left:1em; padding-top: 5px">
           <input class="form-control" type="submit" value="Reload">
         </div>
       </div>
@@ -55,12 +87,530 @@
     </div>
 
   </div>
-  <input type="hidden" name="stat" value="{{ stat }}">
-  <input type="hidden" name="player1" value="{{ player1 }}">
-  <input type="hidden" name="player2" value="{{ player2 }}">
+  <input id="stat-input" type="hidden" name="stat" value="{{ stat }}">
 </form>
 
 <hr>
 
+<!-- Chart -->
+<div class="container bottom-container">
+<div id="chartdiv"></div>
+</div>
+
+
+
+
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="{{ url_for('static',filename='js/datepicker.js') }}"></script>
+
+<script type="text/javascript">
+
+
+
+    var stat_choices = $(".stat-choice");
+    stat_choices.click(function() {
+
+        var stat_string = $(this).text();
+        $("#stat-text").val(stat_string);
+
+        val = "per";
+
+        switch(stat_string) {
+            case "FG%":     val = "fg_pct";
+                            break;
+
+            case "3PM":     val = "fg3m";
+                            break;
+
+            case "FT%":     val = "ft_pct";
+                            break;
+
+            case "REB":     val = "reb";
+                            break; 
+
+            case "AST":     val = "ast";
+                            break;  
+
+            case "STL":     val = "stl";
+                            break; 
+
+            case "BLK":     val = "blk";
+                            break;
+
+            case "TOV":     val = "tov";
+                            break;
+
+            case "PTS":     val = "pts";
+                            break;
+
+            case "+/-":     val = "plus_minus";
+                            break;
+
+            case "PER":
+            default:        val = "per";
+                            break;
+        }
+
+        $("#stat-input").val(val);
+    });
+
+
+
+    var data = [];
+
+    var player1_name = "";
+    var player2_name = "";
+
+    if (player1 && player2 && stat) {
+
+        player1_name = player1.info.name;
+        player2_name = player2.info.name;
+
+        var p1_games = player1.season.games;
+        var p2_games = player2.season.games;
+
+        var p1_len = p1_games.length;
+        var p2_len = p2_games.length;
+
+        for (var i1 = 0, i2 = 0; i1 < p1_len && i2 < p2_len; ) {
+
+            p1_game = p1_games[i1];
+            p2_game = p2_games[i2];
+
+            var p1_val = 0;
+            var p2_val = 0;
+
+            if (p1_game.date == p2_game.date) {
+
+                // both players
+
+                var p1_date = p1_game.date.substring(6, 10) + "/" + p1_game.date.substring(0, 5);
+                // 01/01/2016
+
+                switch(stat) {
+                    case "fg_pct":  if (p1_game.fga > 0)
+                                        p1_val = p1_game.fgm / p1_game.fga
+                                    break;
+
+                    case "fg3m":    p1_val =  p1_game.fg3m;
+                                    break; 
+
+                    case "ft_pct":  if (p1_game.fta > 0)
+                                        p1_val = p1_game.ftm / p1_game.fta
+                                    break;
+
+                    case "reb":     p1_val =  p1_game.reb;
+                                    break; 
+
+                    case "ast":     p1_val =  p1_game.ast;
+                                    break;   
+
+                    case "stl":     p1_val =  p1_game.stl;
+                                    break; 
+
+                    case "blk":     p1_val =  p1_game.blk;
+                                    break; 
+
+                    case "tov":     p1_val =  p1_game.tov;
+                                    break; 
+
+                    case "pts":     p1_val =  p1_game.pts;
+                                    break; 
+
+                    case "plus_minus":  p1_val =  p1_game.plus_minus;
+                                    break; 
+
+                    case "per":
+                    default:        p1_val = p1_game.per;
+                                    break;
+                }
+                data.push({
+                    date: p1_date,
+                    value1: p1_val
+                });
+
+                // next player
+                var p2_date = p2_game.date.substring(6, 10) + "/" + p2_game.date.substring(0, 5);
+                // 01/01/2016
+
+                switch(stat) {
+                    case "fg_pct":  if (p2_game.fga > 0)
+                                        p2_val = p2_game.fgm / p2_game.fga
+                                    break;
+
+                    case "fg3m":    p2_val =  p2_game.fg3m;
+                                    break; 
+
+                    case "ft_pct":  if (p2_game.fta > 0)
+                                        p2_val = p2_game.ftm / p2_game.fta
+                                    break;
+
+                    case "reb":     p2_val =  p2_game.reb;
+                                    break; 
+
+                    case "ast":     p2_val =  p2_game.ast;
+                                    break;   
+
+                    case "stl":     p2_val =  p2_game.stl;
+                                    break; 
+
+                    case "blk":     p2_val =  p2_game.blk;
+                                    break; 
+
+                    case "tov":     p2_val =  p2_game.tov;
+                                    break; 
+
+                    case "pts":     p2_val =  p2_game.pts;
+                                    break; 
+
+                    case "plus_minus":  p2_val =  p2_game.plus_minus;
+                                    break; 
+
+                    case "per":
+                    default:        p2_val = p2_game.per;
+                                    break;
+                }
+                data.push({
+                    date: p2_date,
+                    value2: p2_val
+                });
+
+                i1++;
+                i2++;
+            } else if (p1_game.date.localeCompare(p2_game.date) > 0) {
+
+
+                var p1_date = p1_game.date.substring(6, 10) + "/" + p1_game.date.substring(0, 5);
+                // 01/01/2016
+
+                switch(stat) {
+                    case "fg_pct":  if (p1_game.fga > 0)
+                                        p1_val = p1_game.fgm / p1_game.fga
+                                    break;
+
+                    case "fg3m":    p1_val =  p1_game.fg3m;
+                                    break; 
+
+                    case "ft_pct":  if (p1_game.fta > 0)
+                                        p1_val = p1_game.ftm / p1_game.fta
+                                    break;
+
+                    case "reb":     p1_val =  p1_game.reb;
+                                    break; 
+
+                    case "ast":     p1_val =  p1_game.ast;
+                                    break;   
+
+                    case "stl":     p1_val =  p1_game.stl;
+                                    break; 
+
+                    case "blk":     p1_val =  p1_game.blk;
+                                    break; 
+
+                    case "tov":     p1_val =  p1_game.tov;
+                                    break; 
+
+                    case "pts":     p1_val =  p1_game.pts;
+                                    break; 
+
+                    case "plus_minus":  p1_val =  p1_game.plus_minus;
+                                    break; 
+
+                    case "per":
+                    default:        p1_val = p1_game.per;
+                                    break;
+                }
+                data.push({
+                    date: p1_date,
+                    value1: p1_val
+                });
+
+                i1++;
+            } else {
+
+                var p2_date = p2_game.date.substring(6, 10) + "/" + p2_game.date.substring(0, 5);
+                // 01/01/2016
+
+                switch(stat) {
+                    case "fg_pct":  if (p2_game.fga > 0)
+                                        p2_val = p2_game.fgm / p2_game.fga
+                                    break;
+
+                    case "fg3m":    p2_val =  p2_game.fg3m;
+                                    break; 
+
+                    case "ft_pct":  if (p2_game.fta > 0)
+                                        p2_val = p2_game.ftm / p2_game.fta
+                                    break;
+
+                    case "reb":     p2_val =  p2_game.reb;
+                                    break; 
+
+                    case "ast":     p2_val =  p2_game.ast;
+                                    break;   
+
+                    case "stl":     p2_val =  p2_game.stl;
+                                    break; 
+
+                    case "blk":     p2_val =  p2_game.blk;
+                                    break; 
+
+                    case "tov":     p2_val =  p2_game.tov;
+                                    break; 
+
+                    case "pts":     p2_val =  p2_game.pts;
+                                    break; 
+
+                    case "plus_minus":  p2_val =  p2_game.plus_minus;
+                                    break; 
+
+                    case "per":
+                    default:        p2_val = p2_game.per;
+                                    break;
+                }
+                data.push({
+                    date: p2_date,
+                    value2: p2_val
+                });
+                i2++;
+            }
+        }
+    } else if (player1 && stat) {
+
+        player1_name = player1.info.name;
+
+        var games = player1.season.games;
+
+        var len = games.length;
+
+        for (var i = 0; i < len; i++) {
+
+            game = games[i];
+
+            var val = 0;
+
+            var date = game.date.substring(6, 10) + "/" + game.date.substring(0, 5);
+            // 01/01/2016
+
+            switch(stat) {
+                case "fg_pct":  if (game.fga > 0)
+                                    val = game.fgm / game.fga
+                                break;
+
+                case "fg3m":    val =  game.fg3m;
+                                break; 
+
+                case "ft_pct":  if (game.fta > 0)
+                                    val = game.ftm / game.fta
+                                break;
+
+                case "reb":     val =  game.reb;
+                                break; 
+
+                case "ast":     val =  game.ast;
+                                break;   
+
+                case "stl":     val =  game.stl;
+                                break; 
+
+                case "blk":     val =  game.blk;
+                                break; 
+
+                case "tov":     val =  game.tov;
+                                break; 
+
+                case "pts":     val =  game.pts;
+                                break; 
+
+                case "plus_minus":  val =  game.plus_minus;
+                                break; 
+
+                case "per":
+                default:        val = game.per;
+                                break;
+            }
+            data.push({
+                date: date,
+                value1: val
+            });
+        }
+       
+    } else if (player2 && stat) {
+
+        player2_name = player2.info.name;
+
+        var games = player2.season.games;
+
+        var len = games.length;
+
+        for (var i = 0; i < len; i++) {
+
+            game = games[i];
+
+            var val = 0;
+
+            var date = game.date.substring(6, 10) + "/" + game.date.substring(0, 5);
+            // 01/01/2016
+
+            switch(stat) {
+                case "fg_pct":  if (game.fga > 0)
+                                    val = game.fgm / game.fga
+                                break;
+
+                case "fg3m":    val =  game.fg3m;
+                                break; 
+
+                case "ft_pct":  if (game.fta > 0)
+                                    val = game.ftm / game.fta
+                                break;
+
+                case "reb":     val =  game.reb;
+                                break; 
+
+                case "ast":     val =  game.ast;
+                                break;   
+
+                case "stl":     val =  game.stl;
+                                break; 
+
+                case "blk":     val =  game.blk;
+                                break; 
+
+                case "tov":     val =  game.tov;
+                                break; 
+
+                case "pts":     val =  game.pts;
+                                break; 
+
+                case "plus_minus":  val =  game.plus_minus;
+                                break; 
+
+                case "per":
+                default:        val = game.per;
+                                break;
+            }
+            data.push({
+                date: date,
+                value2: val
+            });
+        }
+    }
+
+    data = data.reverse();
+
+    $(function() {
+    var chart = AmCharts.makeChart("chartdiv", {
+        "type": "serial",
+        "theme": "light",
+        "marginRight": 40,
+        "marginLeft": 40,
+        "autoMarginOffset": 20,
+        "dataDateFormat": "YYYY-MM-DD",
+        "valueAxes": [{
+            "id": "v1",
+            "axisAlpha": 0,
+            "position": "left",
+            "ignoreAxisWidth":true
+        }],
+        "balloon": {
+            "borderThickness": 1,
+            "shadowAlpha": 0
+        },
+        "graphs": [{
+            "id": "g1",
+            "balloon":{
+              "drop":false,
+              "adjustBorderColor":false,
+              "color":"#ffffff"
+            },
+            "bullet": "round",
+            "bulletBorderAlpha": 1,
+            "bulletColor": "#FFFFFF",
+            "bulletSize": 5,
+            "hideBulletsCount": 50,
+            "lineThickness": 2,
+            "title": "red line",
+            "useLineColorForBulletBorder": true,
+            "valueField": "value1",
+            "balloonText": "<span style='font-size:16px;'>[[value1]]<br>" + player1_name + "</span>"
+        }, {
+            "id": "g2",
+            "balloon":{
+              "drop":false,
+              "adjustBorderColor":false,
+              "color":"#ffffff"
+            },
+            "bullet": "round",
+            "bulletBorderAlpha": 1,
+            "bulletColor": "#FFFFFF",
+            "bulletSize": 5,
+            "hideBulletsCount": 50,
+            "lineThickness": 2,
+            "title": "red line",
+            "useLineColorForBulletBorder": true,
+            "valueField": "value2",
+            "balloonText": "<span style='font-size:16px;'>[[value2]]<br>" + player2_name + "</span>"
+        }],
+        "chartScrollbar": {
+            "graph": "g1",
+            "oppositeAxis":false,
+            "offset":30,
+            "scrollbarHeight": 80,
+            "backgroundAlpha": 0,
+            "selectedBackgroundAlpha": 0.1,
+            "selectedBackgroundColor": "#888888",
+            "graphFillAlpha": 0,
+            "graphLineAlpha": 0.5,
+            "selectedGraphFillAlpha": 0,
+            "selectedGraphLineAlpha": 1,
+            "autoGridCount":true,
+            "color":"#AAAAAA"
+        },
+        "chartCursor": {
+            "pan": true,
+            "valueLineEnabled": true,
+            "valueLineBalloonEnabled": true,
+            "cursorAlpha":1,
+            "cursorColor":"#258cbb",
+            "valueLineAlpha":0.2
+        },
+        "valueScrollbar":{
+          "oppositeAxis":false,
+          "offset":50,
+          "scrollbarHeight":10
+        },
+        "categoryField": "date",
+        "categoryAxis": {
+            "parseDates": true,
+            "dashLength": 1,
+            "minorGridEnabled": true
+        },
+        "export": {
+            "enabled": true
+        },
+        "dataProvider": data
+
+    });
+
+    chart.addListener("rendered", zoomChart);
+
+    zoomChart();
+
+    function zoomChart() {
+        chart.zoomToIndexes(chart.dataProvider.length - 40, chart.dataProvider.length - 1);
+    }
+
+});
+
+</script>
+
+
+
+
+
+
+
+
 {% endblock %}
