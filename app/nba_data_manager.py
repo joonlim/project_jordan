@@ -242,11 +242,90 @@ class NBADataManager:
             "per": stats["per"]
         }
 
+
+    def __parse_player_weeks_info(self, player_season_doc):
+        """
+        Given a player season document, create a dict representing information
+        of all totals of each fantasy week.
+
+        Week    Start                  End
+        1       "2015-10-27" <= date < "2015-11-02"
+        2       "2015-11-02" <= date < "2015-11-09"
+        3       "2015-11-09" <= date < "2015-11-16"
+        4       "2015-11-16" <= date < "2015-11-23"
+        5       "2015-11-23" <= date < "2015-11-30"
+        6       "2015-11-30" <= date < "2015-12-07"
+        7       "2015-12-07" <= date < "2015-12-14"
+        8       "2015-12-14" <= date < "2015-12-21"
+        9       "2015-12-21" <= date < "2015-12-28"
+        10      "2015-12-28" <= date < "2015-01-04"
+        11      "2015-01-04" <= date < "2015-01-11"
+        12      "2015-01-11" <= date < "2015-01-18"
+        13      "2015-01-18" <= date < "2015-01-25"
+        14      "2015-01-25" <= date < "2015-02-01"
+        15      "2015-02-01" <= date < "2015-02-08"
+        16      "2015-02-08" <= date < "2015-02-15"
+        17      "2015-02-15" <= date < "2015-02-22"
+        18      "2015-02-22" <= date < "2015-02-29"
+        19      "2015-02-29" <= date < "2015-03-07"
+        20      "2015-03-07" <= date < "2015-03-14"
+        21      "2015-03-14" <= date < "2015-03-21"
+        22      "2015-03-21" <= date < "2015-03-28"
+        23      "2015-03-28" <= date < "2015-03-04"
+        23      "2015-04-04" <= date < "2015-04-11"
+
+        """
+        # games = list()
+        # for game in player_season_doc['games']:
+        #     game_stats = self.__parse_game_stats(game)
+        #     games.append(game_stats)
+
+
+        """
+        {
+            "week": {
+                "1": {
+                    "start": "2015-10-27",
+                    "end": "2015-11-01",
+                    "statistics": {
+                        "min": Integer,
+                        "fgm": Integer,
+                        "fga": Integer,
+                        "fg_pct": Float,
+                        "fg3m": Integer,
+                        "fg3a": Integer,
+                        "fg3_pct": Float,
+                        "ftm": Integer,
+                        "fta": Integer,
+                        "ft_pct": Float,
+                        "oreb": Integer,
+                        "dreb": Integer,
+                        "reb": Integer,
+                        "ast": Integer,
+                        "stl": Integer,
+                        "blk": Integer,
+                        "tov": Integer,
+                        "pf": Integer,
+                        "pts": Integer,
+                        "plus_minus": Integer,
+                        "per": Float
+                    }
+                }
+            }
+        }
+        """
+        weeks = __create_weeks(player_season_doc['games'])
+
+        return {
+            "_id": player_season_doc['_id'],
+            "weeks": weeks
+        }
+
+
     def __parse_player_season_info(self, player_season_doc):
         """
         Given a player season document, create a dict representing information
-        information of the season.
-        create a dict representing
+        of the season.
 
         season_doc format:
 

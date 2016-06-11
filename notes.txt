@@ -1,4 +1,5 @@
-
+TODO: - go to web to get data,
+fork to new process to write that data to disk
 
 
 
@@ -25,6 +26,13 @@ http://stackoverflow.com/questions/10186204/flask-htaccess-for-fastcgi
 
 
 TODO: Multithreaded scraping
+
+- logging in.
+
+TODO: look at srs for nba stat picker 2k16 and check the radio buttons:
+  - by week or by game
+  - filter by player
+  - etc
 
 
 

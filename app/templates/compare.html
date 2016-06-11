@@ -53,9 +53,8 @@
       <div class="row">
         <div class="col-xs-10" style="font-size:16px; padding-top: 5px">
             <div class="input-group">
-              <input id="stat-text" type="text" class="form-control" placeholder="Choose a category" >
               <div class="input-group-btn">
-                <button type="button" class="stat-button btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Select <span class="caret"></span></button>
+                <button type="button" class="stat-button btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{% if stat %}{{ stat }}{% else %}Select{% endif %} <span class="caret"></span></button>
                 <ul class="dropdown-menu scrollable-menu" role="menu">
                   <li><a class="stat-choice" href="#">FG%</a></li>
                   <li><a class="stat-choice" href="#">3PM</a></li>
@@ -152,7 +151,7 @@
             default:        val = "per";
                             break;
         }
-
+        $(".stat-button").html(val + " <span class=\"caret\"></span>");
         $("#stat-input").val(val);
     });
 
@@ -534,7 +533,7 @@
             "title": "red line",
             "useLineColorForBulletBorder": true,
             "valueField": "value1",
-            "balloonText": "<span style='font-size:16px;'>[[value1]]<br>" + player1_name + "</span>"
+            "balloonText": "<span style='font-size:16px;'>" + player1_name + " - [[value1]]</span>"
         }, {
             "id": "g2",
             "balloon":{
@@ -551,7 +550,7 @@
             "title": "red line",
             "useLineColorForBulletBorder": true,
             "valueField": "value2",
-            "balloonText": "<span style='font-size:16px;'>[[value2]]<br>" + player2_name + "</span>"
+            "balloonText": "<span style='font-size:16px;'>" + player2_name + " - [[value2]]</span>"
         }],
         "chartScrollbar": {
             "graph": "g1",

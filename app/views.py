@@ -159,9 +159,7 @@ def compare():
     # Fake user for now
     user = um.fake_user()
 
-    # Check if there is a start, end, player1, and player2
-    start = request.args.get('start')
-    end = request.args.get('end')
+    # Check if there is player1, and player2
     player1 = request.args.get('player1')
     player2 = request.args.get('player2')
     stat = request.args.get('stat')
@@ -211,12 +209,6 @@ def compare():
 
     page = wm.new_page(page_title)
 
-    # Default date and stat. secondstat defaults to None.
-    if not utils.is_valid_date(start, "-"):
-        start = utils.days_before_today(2, "%m-%d-%Y")  # Two days before today
-    if not utils.is_valid_date(end, "-"):
-        end = utils.days_before_today(1, "%m-%d-%Y")  # Yesterday's date
-
     # TODO LOGIC, by game or by week, etc
 
     return render_template("compare.html",
@@ -224,8 +216,6 @@ def compare():
                            page=page,
                            navbar=navbar,
                            user=user,
-                           start=start,
-                           end=end,
                            player1=player1,
                            player2=player2,
                            stat=stat)
