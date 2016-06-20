@@ -3,7 +3,8 @@ import app.utils as utils
 from app.static.teams import teams
 from heapq import nlargest
 
-HOST = "23.23.23.23"
+# HOST = "23.23.23.23"
+HOST = 'localhost'
 PORT = 27017
 
 
